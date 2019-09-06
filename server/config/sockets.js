@@ -14,7 +14,6 @@ io.on("connection", socket => {
     };
 
     socket.on('getAllChats', id => {
-      console.log('inside getallchats socket')
       model.Chatroom.find({
         $or: [
           {host:id},
@@ -45,9 +44,7 @@ io.on("connection", socket => {
         }
       }}, (err, data)=> {
         if(err){
-          console.log(err);
         } else {
-          console.log("msg data ",data);
           io.emit('posted', data);
         }
       }
@@ -61,9 +58,7 @@ io.on("connection", socket => {
         guest: data.guest_id
       }, (err, res) => {
           if(err) {
-              console.log("error");
           } else {
-            console.log(res);
             io.emit('refreshChat', res);
           }
       });

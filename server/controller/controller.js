@@ -23,14 +23,12 @@ module.exports = {
             else if(!user){
                 res.status(401).send("Invalid username");
             }else{
-              console.log('comparing data');
                 bcrypt.compare(req.body.password, user.password, function(error, data) {
                     if(error){
                         res.status(401).send('Error Hashing Password!')
                     } else if (data == false){
                         res.status(401).send('Invalid password!')
                     }else {
-                        console.log('pw data', data);
                         let payload = {subject: user._id};
                         let token = jwt.sign(payload, "secretKey");
                         res.status(200).send({token:token, user:user});
@@ -41,7 +39,6 @@ module.exports = {
     },
     //create new task
     registerUser: function(req, res){
-      console.log('hello');
         bcrypt.hash(req.body.password, 10, function(err, hash){
             if(err){
                 res.status(401).send('Error Hashing pw');
@@ -56,10 +53,8 @@ module.exports = {
                     email: req.body.email
                 }, function(err, data){
                     if(err){
-                        console.log('Error: ', err);
                         res.json({message:"Error", error:err});
                     }else{
-                      console.log('hello');
                         let payload = {subject: data._id}
                         let token = jwt.sign(payload, "secretKey");
                         res.status(200).send({token:token, id:data._id});
@@ -122,7 +117,6 @@ module.exports = {
         ]
       }, (err, data)=> {
         if(err){
-          console.log(err);
           res.status(401).send(err);
         }else {
           res.json(data);
@@ -145,7 +139,6 @@ module.exports = {
       }
     }, (err, data)=> {
       if(err){
-        console.log(err);
         res.json({message: "ERROR", error: err})
       }else {
         res.json(data);
@@ -163,10 +156,8 @@ module.exports = {
       sun:req.body.schedule.sun
     }}},(err, data)=>{
       if(err){
-        console.log(err);
         res.json(err);
       } else {
-        console.log(data);
         res.json(data);
       }
     })
@@ -175,7 +166,6 @@ module.exports = {
   setDefaultGym: (req, res)=> {
     model.User.findOneAndUpdate({_id: req.body.id}, {$set: {default_gym: req.body.gym_id}}, (err, data)=>{
       if(err){
-        console.log(err);
         res.json(err);
       } else {
         res.json(data);
@@ -192,14 +182,12 @@ module.exports = {
     })
   },
   updateInfo:(req, res)=> {
-    console.log(req.body)
     model.User.findOneAndUpdate({_id: req.body._id}, {$set:{
       fname: req.body.fname,
       lname: req.body.lname,
       email: req.body.email
     }}, (err, data)=>{
       if(err){
-        console.log(err);
         res.json(err);
       } else {
         res.json(data);
