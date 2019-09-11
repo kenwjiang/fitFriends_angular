@@ -21,9 +21,15 @@ function verifyToken(req, res, next){
 }
 
 module.exports = function(app){
+  //get room data;
+  app.get("/getRoom/:id", controller.getRoom);
+
+  //check to see if a chat exists
+  app.post("/checkChat", controller.checkChatroom);
+
   //update user password
   app.post('/updatePassword', controller.updatePassword);
-  
+
   //update user name and email
   app.post('/updateInfo', controller.updateInfo);
 

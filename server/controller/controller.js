@@ -172,6 +172,8 @@ module.exports = {
       }
     })
   },
+
+  //return all members except for self
   getMembers: (req, res)=> {
     model.User.find({_id: {$ne: req.body.self_id}, default_gym: req.body.gym_id}, (err, data)=>{
       if(err){
