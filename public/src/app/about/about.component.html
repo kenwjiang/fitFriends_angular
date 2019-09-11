@@ -1,0 +1,60 @@
+<div class="index_container">
+  <nav class="navbar navbar-expand-sm navbar-dark" style="background:transparent">
+    <a class="navbar-brand" [routerLink]="['/']">
+      <img src="../assets/images/friendicon.png" style="height: 30px; width: 30px;" alt="friend icon">
+      fitFriends</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle=".navbar-collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+        </li>
+      </ul>
+
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/about']">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/login']">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/register']">Register</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="more_container">
+    <div class="mission_container">
+      <h1 class="mission_title">- Our Mission - </h1>
+      <p class="mssion_statement">Finding a consistent gym partner has been difficult for individuals with non-traditional schedules. This app hopes to promote healthier living through mutual accountability and serves as a medium to connect people who share the same fitness plans, goals, and schedules.</p>
+    </div>
+
+    <div class="about_container">
+      <h1 class="about_title">About</h1>
+      <p class="about_info">This website provides services which allows you to connect with people in your area with the same gym membership. There will be no matching system, but instead, <span class="font-weight: bold">YOU</span> will be given the all the control.</p>
+
+      <h3 class="preference_title">Preferences</h3>
+      <p class="preference_info">Safety and comfort has always been a priority with platforms like these. After registering, you will be required to fill out a form with some goals and prefences which include your future gym partner's gender preference. Gender preference will be the most important factor in who will appear, so users can feel safe about not being harassed using this platform.</p>
+      <p class="preference_info">Members who share the most fields of preferences and goals will show up at the top of your gym page, alongside the ability to message them.</p>
+
+      <h3 class="default_gym">Default Gym</h3>
+      <p class="default_gym_info">You will need to select a default gym after filling out the preference form. Navigating to non-default gyms will show no information other than the standard gym information, and setting a gym as defaults will show all possible members most closely related to your preferences and goals.</p>
+
+      <h3 class="warning">WARNING</h3>
+      <p class="">Please be careful with the people you meet over the internet. This app's creators will not be liable for mishaps.</p>
+    </div>
+
+
+    <div class="register_container">
+      <div class="reg_content">
+        <p>Try out fitFriends!</p>
+        <a [routerLink]="['/login']" class="btn btn-info">Login</a>
+        <a [routerLink]="['/register']" class="btn btn-info">Register</a>
+      </div>
+      </div>
+  </div>
+
+</div>

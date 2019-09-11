@@ -1,0 +1,56 @@
+.inner_cover{
+  width: 100%;
+  margin: 0 auto;
+}
+.info_container{
+  width: 50%;
+  margin: auto;
+  padding-top: 130px;
+  color: white;
+}
+
+.index_container {
+  background: linear-gradient( rgba(0, 0, 0, 0.80), rgba(0, 0, 0, 0.80) ), url('https://images.unsplash.com/photo-1536922246289-88c42f957773?ixlib=rb-1.2.1&auto=format&fit=crop&w=1380&q=80');
+  min-height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+
+.more_container {
+  width: 80%;
+  margin: 5% 10%;
+  display: inline-block;
+  color: white;
+}
+.mission_container {
+  width: 65%;
+  margin: 0 auto;
+}
+.mission_title {
+  text-align: center;
+}
+
+.about_container{
+  margin: 5% auto;
+  width: 65%;
+}
+.about_container h3 {
+  margin-top: 5%;
+}
+.reg_container{
+  width: 80%;
+  margin: 5% 10%;
+}
+.reg_content {
+  width: 100%;
+  text-align: center;
+}
+button{
+  margin: 0 2%;
+}
+.warning {
+  color: red;
+}

@@ -1,0 +1,19 @@
+.some_container {
+  width: 80%;
+  margin: 2% auto;
+}
+
+.info_form_container, .edit_password_container{
+  width: 80%;
+  margin: 5% auto;
+}
+
+label {
+  width:30%;
+  display: inline-block
+}
+
+input{
+  width: 40%;
+  display: inline-block;
+}

@@ -1,0 +1,20 @@
+.message_display {
+  height: 50vh;
+  border: 2px solid black;
+  width: 100%;
+  overflow: scroll;
+  margin: 2%;
+}
+
+
+.eachMsg p {
+  margin: 2%;
+}
+
+.input_field, .input_field input, .input_field button{
+  margin: 2%
+}
+
+.input_field input {
+  width: 75%;
+}

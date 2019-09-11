@@ -1,0 +1,30 @@
+.sidenav {
+  position: relative;
+  min-height: 75vh;
+  border-right: 2px solid #007B5D;
+  box-shadow: 4px 0px 2px -2px #007B5D;
+  display: inline-block;
+  padding: 0;
+}
+
+.chatrooms {
+  margin: 10% 0;
+
+}
+.chatbox{
+  display: inline-block;
+  vertical-align: top;
+  margin: 2%;
+  width: 80%;
+}
+
+.chat_container{
+  padding: 0px;
+
+}
+
+@media only screen and (min-width: 1239px){
+  .sidenav {
+    margin-left: -15%;
+  }
+}

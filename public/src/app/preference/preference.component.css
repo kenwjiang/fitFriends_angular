@@ -1,0 +1,21 @@
+.form_container {
+  width: 80%;
+  margin: 0 auto
+}
+.schedule_container, .goals_container {
+  width: 35%;
+  display: inline-block;
+  margin: 2% 5%;
+  vertical-align: top;
+}
+
+table td input {
+  width: 100px;
+  text-align: center;
+}
+
+.workoutGoals label {
+  text-align: left;
+  width: 175px;
+  margin:2%
+}

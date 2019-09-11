@@ -1,0 +1,78 @@
+<div class="pref_container">
+  <div class="form_container">
+
+    <div class="schedule_container">
+      <form id="schedule" (submit)="updateSchedule()">
+        <h2>Please Fill Out Your Workout Schedule</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Monday</th>
+                <td><input atp-time-picker [(ngModel)]="schedule.mon" name="mon"></td>
+              </tr>
+              <tr>
+                <th scope="row">Tuesday</th>
+                <td><input atp-time-picker [(ngModel)]="schedule.tues" name="tues"></td>
+              </tr>
+              <tr>
+                <th scope="row">Wednesday</th>
+                <td><input atp-time-picker [(ngModel)]="schedule.wed" name="wed"></td>
+              </tr>
+              <tr>
+                <th scope="row">Thursday</th>
+                <td><input atp-time-picker [(ngModel)]="schedule.thurs" name="thurs"></td>
+              </tr>
+              <tr>
+                <th scope="row">Friday</th>
+                <td><input atp-time-picker [(ngModel)]="schedule.fri" name="fri"></td>
+              </tr>
+              <tr>
+                <th scope="row">Saturday</th>
+                <td><input atp-time-picker [(ngModel)]="schedule.sat" name="sat"></td>
+              </tr>
+              <tr>
+                <th scope="row">Sunday</th>
+                <td><input atp-time-picker [(ngModel)]="schedule.sun" name="sun"></td>
+              </tr>
+            </tbody>
+          </table>
+        <button type="submit" name="btn btn-warning">Update Schedule</button>
+      </form>
+    </div>
+
+    <div class="goals_container">
+      <form (submit)="updateGoals()">
+        <div class="workoutGoals">
+          <h3>What are your workout goals?</h3>
+            <p>(Select one more more options)</p>
+
+              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="weight_loss" [(ngModel)]="preference.weight_loss"> Weight Loss</label>
+              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="cardio" [(ngModel)]="preference.cardio">Cardio Fitness</label>
+              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="endurance" [(ngModel)]="preference.endurance"> Endurance</label>
+              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="flexibility" [(ngModel)]="preference.flexibility">  Flexibility</label>
+              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="muscle" [(ngModel)]="preference.muscle"> Building Muscle</label>
+              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="strength" [(ngModel)]="preference.strength"> Strength Training</label>
+              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="genFit" [(ngModel)]="preference.genFit"> General Health</label>
+
+        <div class="genPrefSelect">
+          <h4>fitFriend Gender Preference?</h4>
+          <select class="genderPref" name='genderPref' placeholder="Choose gender" class="form-control" [(ngModel)]="preference.gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="none">No Preference</option>
+          </select>
+        </div>
+        <button type="submit" class='btn btn-primary' name="button">Submit</button>
+        <button type="reset" class='btn btn-danger' name="button">Reset</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="index_container">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" style="color: white;">
+      <img src="../assets/images/friendicon.png" style="height: 30px; width: 30px;" alt="friend icon">
+      fitFriends</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle=".navbar-collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" [routerLink]="['default']">Default Gym</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav">
+        <div class="dropdown show">
+          <li ngbDropdown class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" ngbDropdownToggle id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false" href="" onclick="return false;">
+              Account Settings
+            </a>
+            <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" [routerLink]="['/main', 'preferences']">Edit Preference</a>
+              <a class="dropdown-item" [routerLink]="['/main', 'edit_info']">Update Account Info</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/main', 'map']">Change Default Gym</a>
+            </div>
+          </li>
+        </div>
+
+      <li class="nav-item active">
+        <a class="nav-link" (click)="logout()" [routerLink]="['']">Logout</a>
+      </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+<router-outlet></router-outlet>

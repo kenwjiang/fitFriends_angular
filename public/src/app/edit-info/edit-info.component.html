@@ -1,0 +1,47 @@
+<div class="edit_info_container">
+  <div class="some_container">
+    <div class="info_form_container">
+        <h5>Update Personal Information</h5>
+
+        <div class="form-goup">
+          <form (submit)="changeInfo()">
+            <div class="col">
+              <label for="fname">First Name</label>
+              <input type="text" class="form-control" [(ngModel)]='self.fname' name="fname" placeholder="First name">
+            </div>
+            <div class="col">
+              <label for="lname">Last Name</label>
+              <input type="text" class="form-control" name="lname" [(ngModel)]='self.lname' placeholder="Last name">
+            </div>
+            <div class="col">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" [(ngModel)]='self.email'  name="email" placeholder="Email">
+            </div>
+             <button type="submit" class="btn btn-primary" name="button">Submit</button>
+          </form>
+        </div>
+    </div>
+
+    <div class="edit_password_container">
+      <h5>Update Password</h5>
+      <p>It's good to use a strong and unique password.</p>
+
+      <form (submit)="changePassword()">
+        <label for="current">Current Password</label>
+        <input type="password" name="current" class="form-control" [(ngModel)]="password.old" placeholder="Password"><br>
+
+        <label for="new">New Password</label>
+        <input type="password" name="new" #password="ngModel" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" [(ngModel)]="password.new" class="form-control" placeholder="New Password"><br>
+        <div class="alert alert-warning" *ngIf=" (password.invalid && (password.dirty || password.touched))">
+           <span *ngIf="password.errors.required">New password is required</span>
+           <span *ngIf="password.errors?.pattern">New password must be at least 8 characters and contain 1 letter, 1 number.</span>
+       </div>
+
+        <label for="new">Confirm Password</label>
+        <input type="password" name="confirm" class="form-control" placeholder="New Password"><br>
+        <button type="submit" class="btn btn-success">Change Password</button>
+      </form>
+
+    </div>
+  </div>
+</div>

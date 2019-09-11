@@ -1,0 +1,12 @@
+<div class="message_display">
+  <div *ngFor="let msg of roomMsgs" class="eachMsg">
+    <p>{{msg.sender.username}} said: {{msg.message}}</p>
+  </div>
+</div>
+
+<div class="input_field">
+  <form (submit)="sendMsg()">
+    <input type="text" name ="msgToSend" [(ngModel)]="msgToSend" placeholder="Type message here..">
+    <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+</div>

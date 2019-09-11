@@ -1,0 +1,35 @@
+<section id="team" class="pb-5">
+    <div class="card_container">
+        <h5 class="section-title h1">Chat!</h5>
+        <div class="row">
+            <!-- Team member -->
+            <div *ngFor="let member of members" class="col-xs-12 col-sm-6 col-md-4">
+              <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                <div class="mainflip">
+                    <div class="frontside">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h4 class="card-title">{{member.username}}</h4>
+                                <p class="card-text">Description of member</p>
+                                <p class="card-text">Hover to see schedule + chat button</p>
+                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="backside">
+                        <div class="card">
+                            <div class="card-body text-center mt-4">
+                                <h4 class="card-title">Chat with me</h4>
+                                <p class="card-text">Schedule table would be here alongside some side preferences</p>
+                                <button class="btn btn-success" style="background-color: #007B5D" (click)="createChat(member._id)">Chat</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+              </div>
+            </div>
+            <!-- ./Team member -->
+
+        </div>
+</section>

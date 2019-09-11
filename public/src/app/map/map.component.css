@@ -1,0 +1,12 @@
+.map_search {
+
+ margin: 0 22%;
+}
+agm-map {
+  height: 400px;
+  width: 800px;
+}
+
+.form-group {
+  width: 800px;
+}

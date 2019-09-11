@@ -1,0 +1,58 @@
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- REgister Form -->
+
+    <form (submit)="addUser()">
+      <input type="text" id="firstName" #firstName="ngModel" required minlength="2" class="fadeIn second" name="newUser.fname" [(ngModel)]="newUser.fname" placeholder="first name">
+      <div class="alert alert-warning" *ngIf=" (firstName.invalid && (firstName.dirty || firstName.touched))">
+         <span *ngIf="firstName.errors.required">First name is required</span>
+         <span *ngIf="firstName.errors.minlength">First name must be at least 2 characters</span>
+     </div>
+
+      <input type="text" id="lastName" #lastName="ngModel" required minlength="2" class="fadeIn second" name="newUser.lname" [(ngModel)]="newUser.lname" placeholder="last name">
+      <div class="alert alert-warning" *ngIf=" (lastName.invalid && (lastName.dirty || lastName.touched))">
+         <span *ngIf="lastName.errors.required">Last name is required</span>
+         <span *ngIf="lastName.errors.minlength">Last name must be at least 2 characters</span>
+     </div>
+
+      <input type="text" required minlength="3" id="username" #username="ngModel" class="fadeIn second" name="newUser.username" [(ngModel)]="newUser.username" placeholder="username">
+      <div class="alert alert-warning" *ngIf=" (username.invalid && (username.dirty || username.touched))">
+         <span *ngIf="username.errors.required">Username is required</span>
+         <span *ngIf="username.errors.minlength">Username must be at least 3 characters</span>
+     </div>
+
+      <input type="text" id="email" #email="ngModel" required pattern="^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$" required class="fadeIn second" name="newUser.email" [(ngModel)]="newUser.email" placeholder="email">
+      <div class="alert alert-warning" *ngIf=" (email.invalid && (email.dirty || email.touched))">
+         <span *ngIf="email.errors.required">Email is required</span>
+         <span *ngIf="email.errors?.pattern">Enter a valid email</span>
+     </div>
+
+      <input type="password" id="password" #password="ngModel" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" class="fadeIn second" name="newUser.password" [(ngModel)]="newUser.password" placeholder="password">
+      <div class="alert alert-warning" *ngIf=" (password.invalid && (password.dirty || password.touched))">
+         <span *ngIf="password.errors.required">Password is required</span>
+         <span *ngIf="password.errors?.pattern">Password must be at least 8 characters and contain 1 letter, 1 number.</span>
+     </div>
+
+      <label id="dob_label" for="newUser.dob" class="fadeIn second">Date of Birth</label>
+      <input type="date" required id="dob" #dob="ngModel" class="fadeIn second" name="newUser.dob" [(ngModel)]="newUser.dob"><br>
+      <div class="alert alert-warning" *ngIf=" (dob.invalid && (dob.dirty || dob.touched))">
+         <span *ngIf="dob.errors.required">Must enter a birthday</span>
+     </div>
+
+      <label id="gender_label" for="gender" class="fadeIn second">Select gender: </label>
+      <input type="radio" [(ngModel)]="newUser.gender" name="gender" value="male" class="fadeIn second"><label for="gender" class="fadeIn second">Male</label>
+      <input type="radio" [(ngModel)]="newUser.gender" name="gender" value="female" class="fadeIn second"><label for="gender" class="fadeIn second">Female</label>
+      <input type="radio" [(ngModel)]="newUser.gender" name="gender" value="other" class="fadeIn second"><label for="gender" class="fadeIn second">Other</label>
+
+      <input type="submit" [disabled]="(firstName.invalid || lastName.invalid || email.invalid || password.invalid || dob.invalid)" class="fadeIn fourth" value="Register">
+    </form>
+
+    <div id="formFooter">
+      <a class="underlineHover" [routerLink]="['/login']">Already have an account? Sign in here</a>
+    </div>
+
+  </div>
+</div>

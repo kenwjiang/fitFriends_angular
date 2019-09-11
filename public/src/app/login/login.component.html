@@ -1,0 +1,18 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Login Form -->
+    <form (submit)="loginUser()">
+      <input type="text" id="login" class="fadeIn second" name="username" [(ngModel)]="username" placeholder="username">
+      <input type="password" id="password" class="fadeIn third" name="password" [(ngModel)]="password" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" [routerLink]="['/register']">No account? Register Here</a>
+    </div>
+
+  </div>
+</div>

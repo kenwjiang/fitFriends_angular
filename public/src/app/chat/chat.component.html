@@ -1,0 +1,14 @@
+
+<div class="chat_container">
+  <div class='sidenav col-sm-2'>
+    <div *ngFor="let room of allRooms" class="chatrooms col-sm-4">
+      <span *ngIf="room.guest._id === self_id">  <a [routerLink]="['/app', 'chat', room.chatroom_id]">{{room.host.username}}</a></span>
+      <span *ngIf="room.host._id === self_id">  <a [routerLink]="['/app', 'chat', room.chatroom_id]">{{room.guest.username}}</a></span>
+    </div>
+  </div>
+
+  <div class="chatbox col-sm-8 col-md-8">
+  <router-outlet></router-outlet>
+  </div>
+
+</div>
