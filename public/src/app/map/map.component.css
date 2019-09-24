@@ -1,12 +1,15 @@
 .map_search {
-
- margin: 0 22%;
+ margin: 0 2%;
 }
-agm-map {
+/* agm-map {
   height: 400px;
   width: 800px;
-}
+} */
 
-.form-group {
-  width: 800px;
+/* .form-group {
+  width: 30%;
+} */
+
+input[type=text]{
+  width: 30%;
 }

@@ -36,7 +36,6 @@ export class DefaultComponent implements OnInit {
       this.userService.getGymMembers({self_id: this.self._id, gym_id:data['default_gym']})
       .subscribe(members=> {
         this.members = members;
-        console.log(members);
       })
     })
   }
@@ -47,11 +46,9 @@ export class DefaultComponent implements OnInit {
     .subscribe((data: any)=> {
       if(data.length === 0){
         let chatroom_id = this.chatId();
-        console.log("chatroom id", chatroom_id);
         this.socketsService.createChat({host_id: this.host_id, chatroom_id: chatroom_id, guest_id:guest_id});
         this._router.navigate(['/main/chat', chatroom_id]);
       }else {
-        console.log("else data", data);
         let room_id = data[0]['chatroom_id'];
         this._router.navigate(['/main/chat/', room_id])
       }

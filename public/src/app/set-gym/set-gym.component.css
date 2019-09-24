@@ -1,0 +1,26 @@
+::ng-deep .mat-form-field-wrapper{
+    width: 600px !important;
+    margin-left: 4%;
+}
+.input_container, .place_container{
+    margin-top: 2%;
+}
+
+.place_container{
+    width: 50%;
+    margin: 0 2%;
+    background-position-x: 50% !important;
+    background-position-y: 50% !important;
+    height: 350px;
+    color:white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.place_container > h1, .place_container > div {
+    margin-top: 5%;
+}
+.place_info{
+    opacity: 1;
+}

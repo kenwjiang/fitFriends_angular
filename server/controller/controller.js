@@ -15,7 +15,6 @@ module.exports = {
     },
 
     login: function(req, res){
-        console.log(req.body);
         model.User.findOne({username: req.body.username}, function(err, user){
             if(err){
                 res.json(err);

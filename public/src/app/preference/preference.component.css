@@ -1,21 +1,15 @@
-.form_container {
-  width: 80%;
-  margin: 0 auto
-}
-.schedule_container, .goals_container {
-  width: 35%;
-  display: inline-block;
-  margin: 2% 5%;
-  vertical-align: top;
+
+
+.pref_options, .main_container {
+  margin: 2%;
 }
 
-table td input {
-  width: 100px;
-  text-align: center;
+.pref_options > a::after{
+  margin: 0 2%;
+  content: "/";
+  color: black;
 }
 
-.workoutGoals label {
-  text-align: left;
-  width: 175px;
-  margin:2%
+.pref_options > a:last-child::after{
+  content: '';
 }

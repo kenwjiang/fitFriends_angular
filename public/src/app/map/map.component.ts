@@ -15,14 +15,8 @@ declare const google: any;
 export class MapComponent implements OnInit {
   self_id:string;
   self:any;
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  address: string;
-  map: any;
-  nearbyGyms: any=[];
   private geoCoder;
-  private gymSearch;
+  private autocomplete;
 
   @ViewChild('search', {static:false})
   public searchElementRef: ElementRef;
@@ -38,53 +32,34 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.self_id = localStorage.getItem('id');
     this.getSelf();
+
       //load Places Autocomplete
       this.mapsAPILoader.load().then(() => {
-        this.setCurrentLocation();
         this.geoCoder = new google.maps.Geocoder;
-
+        
         // this.GymSearch
-        let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
           types: ["establishment"]
         });
-        autocomplete.addListener("place_changed", () => {
+        this.autocomplete.addListener("place_changed", () => {
+          
           this.ngZone.run(() => {
             //get the place result
-            let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+            let place: google.maps.places.PlaceResult = this.autocomplete.getPlace();
 
             //verify result
             if (place.geometry === undefined || place.geometry === null) {
               return;
             }
 
-            //set latitude, longitude and zoom
-            this.latitude = place.geometry.location.lat();
-            this.longitude = place.geometry.location.lng();
-            this.getNearbyGyms(this.latitude, this.longitude);
-            this.zoom = 14;
+            console.log('place', place);           
           });
         });
       });
     }
 
     // Get Current Location Coordinates
-    private setCurrentLocation() {
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.latitude = position.coords.latitude;
-          this.longitude = position.coords.longitude;
-          this.zoom = 14;
-          this.getNearbyGyms(this.latitude, this.longitude)
-        });
-      }
-    }
 
-
-    markerDragEnd($event: MouseEvent) {
-      this.latitude = $event.coords.lat;
-      this.longitude = $event.coords.lng;
-      this.getNearbyGyms(this.latitude, this.longitude);
-    }
 
     setDefaultGym(id){
       this.mapService.setDefault({id: this.self_id, gym_id: id})
@@ -101,24 +76,7 @@ export class MapComponent implements OnInit {
       })
     }
 
-    setMapData(event){
-      this.map = event;
-      this.gymSearch = new google.maps.places.PlacesService(this.map);
-    }
 
-    getNearbyGyms(lat, lng){
-      this.gymSearch.nearbySearch({keyword:"gym", location:{lat:lat, lng: lng}, radius: 3000}, (results, status) => {
-        console.log(results);
-        let gymsArray = [];
-        for (let gym of results){
-          let latitude = gym.geometry.location.lat();
-          let longitude = gym.geometry.location.lng();
-          gymsArray.push({name:gym.name, address: gym.vicinity, lat: latitude, lng: longitude, place_id:gym.place_id})
-        }
-        this.nearbyGyms = gymsArray;
-      })
-
-    }
 
 
   }

@@ -1,4 +1,4 @@
-<div class="pref_container">
+<!-- <div class="pref_container">
   <div class="form_container">
 
     <div class="schedule_container">
@@ -74,5 +74,17 @@
       </form>
     </div>
 
+  </div>
+</div> -->
+
+<div class="pref_container">
+  <div class="pref_options">
+    <a [routerLink]="['/main', 'preferences', 'gym']">Set Default Gym</a>
+    <a [routerLink]="['/main', 'preferences', 'schedule']">Set Workout Schedule</a>
+    <a [routerLink]="['/main', 'preferences', 'goals']">Set Workout Goals</a>
+  </div>
+
+  <div class="main_container">
+    <router-outlet></router-outlet>
   </div>
 </div>

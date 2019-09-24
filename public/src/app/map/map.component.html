@@ -1,11 +1,11 @@
 
 <div class="map_search">
-  <div class="form-group">
+  <!-- <div class="form-group">
     <h3>Find your gym by search bar</h3>
     <p>Includes all surround fitness centers</p>
     <p>(You can drag the center place marker and it'll redo search in the radius)</p>
     <label><b>Enter Address</b></label>
-     <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+     <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" search>
   </div>
 
   <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" (mapReady)="setMapData($event)">
@@ -24,6 +24,8 @@
         </agm-marker>
       </ng-container>
 
-  </agm-map>
+  </agm-map> -->
 
+  <label><b>Enter Address</b></label>
+  <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
 </div>

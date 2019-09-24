@@ -11,6 +11,9 @@ import { DefaultComponent } from './default/default.component';
 import { EditInfoComponent } from './edit-info/edit-info.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatboxComponent } from './chatbox/chatbox.component';
+import { SetScheduleComponent } from './set-schedule/set-schedule.component';
+import { SetGymComponent } from './set-gym/set-gym.component';
+import { SetGoalsComponent } from './set-goals/set-goals.component';
 
 import { AuthGuard } from './auth.guard';
 
@@ -20,7 +23,11 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "main", component: MainComponent, canActivate:[AuthGuard], children: [
-    { path: 'preferences', component: PreferenceComponent },
+    { path: 'preferences', component: PreferenceComponent, children: [
+      {path: 'gym', component: SetGymComponent},
+      {path: 'schedule', component: SetScheduleComponent},
+      {path: 'goals', component: SetGoalsComponent}
+    ]},
     { path: 'map', component: MapComponent },
     { path: 'default', component: DefaultComponent },
     { path: "edit_info", component: EditInfoComponent},

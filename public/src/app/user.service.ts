@@ -7,9 +7,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserService {
 
+  
   constructor(private _http: HttpClient) { }
 
   getSelf(id){
+
     return this._http.get('/getSelf/'+id)
   }
   getGymMembers(data){

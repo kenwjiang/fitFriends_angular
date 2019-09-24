@@ -127,9 +127,6 @@ section .section-title {
     height: 120px;
     border-radius: 50%;
 }
-.card_container {
-  margin-top: 5%;
-}
 
 h5.section-title.h1{
   margin: 10px 0;
