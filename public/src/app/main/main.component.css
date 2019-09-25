@@ -24,3 +24,6 @@
   .is-mobile .sidebar_container{
     flex: 1 0 auto;
   }
+  .mat-list-base .mat-list-item .mat-list-item-content{
+      margin: 0 2% !important;
+  }

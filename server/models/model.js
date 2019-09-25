@@ -45,6 +45,7 @@ const ScheduleSchema = new mongoose.Schema ({
   sun: {type: String, default: null}
 })
 const PreferenceSchema = new mongoose.Schema({
+  user_id: {type: Schema.Types.ObjectId, ref: "User"},
   gender: {type: String, required: [true, 'Please select a gender preference.']},
   weight_loss: {type: Boolean, default: false},
   cardio: {type: Boolean, default: false},

@@ -1,90 +1,150 @@
-<!-- <div class="pref_container">
-  <div class="form_container">
-
-    <div class="schedule_container">
-      <form id="schedule" (submit)="updateSchedule()">
-        <h2>Please Fill Out Your Workout Schedule</h2>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Day</th>
-                <th scope="col">Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Monday</th>
-                <td><input atp-time-picker [(ngModel)]="schedule.mon" name="mon"></td>
-              </tr>
-              <tr>
-                <th scope="row">Tuesday</th>
-                <td><input atp-time-picker [(ngModel)]="schedule.tues" name="tues"></td>
-              </tr>
-              <tr>
-                <th scope="row">Wednesday</th>
-                <td><input atp-time-picker [(ngModel)]="schedule.wed" name="wed"></td>
-              </tr>
-              <tr>
-                <th scope="row">Thursday</th>
-                <td><input atp-time-picker [(ngModel)]="schedule.thurs" name="thurs"></td>
-              </tr>
-              <tr>
-                <th scope="row">Friday</th>
-                <td><input atp-time-picker [(ngModel)]="schedule.fri" name="fri"></td>
-              </tr>
-              <tr>
-                <th scope="row">Saturday</th>
-                <td><input atp-time-picker [(ngModel)]="schedule.sat" name="sat"></td>
-              </tr>
-              <tr>
-                <th scope="row">Sunday</th>
-                <td><input atp-time-picker [(ngModel)]="schedule.sun" name="sun"></td>
-              </tr>
-            </tbody>
-          </table>
-        <button type="submit" name="btn btn-warning">Update Schedule</button>
-      </form>
-    </div>
-
-    <div class="goals_container">
-      <form (submit)="updateGoals()">
-        <div class="workoutGoals">
-          <h3>What are your workout goals?</h3>
-            <p>(Select one more more options)</p>
-
-              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="weight_loss" [(ngModel)]="preference.weight_loss"> Weight Loss</label>
-              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="cardio" [(ngModel)]="preference.cardio">Cardio Fitness</label>
-              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="endurance" [(ngModel)]="preference.endurance"> Endurance</label>
-              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="flexibility" [(ngModel)]="preference.flexibility">  Flexibility</label>
-              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="muscle" [(ngModel)]="preference.muscle"> Building Muscle</label>
-              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="strength" [(ngModel)]="preference.strength"> Strength Training</label>
-              <label class="btn btn-warning"><input class="checkbox_cat" type="checkbox" name="genFit" [(ngModel)]="preference.genFit"> General Health</label>
-
-        <div class="genPrefSelect">
-          <h4>fitFriend Gender Preference?</h4>
-          <select class="genderPref" name='genderPref' placeholder="Choose gender" class="form-control" [(ngModel)]="preference.gender">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="none">No Preference</option>
-          </select>
-        </div>
-        <button type="submit" class='btn btn-primary' name="button">Submit</button>
-        <button type="reset" class='btn btn-danger' name="button">Reset</button>
-        </div>
-      </form>
-    </div>
-
-  </div>
-</div> -->
-
 <div class="pref_container">
-  <div class="pref_options">
-    <a [routerLink]="['/main', 'preferences', 'gym']">Set Default Gym</a>
-    <a [routerLink]="['/main', 'preferences', 'schedule']">Set Workout Schedule</a>
-    <a [routerLink]="['/main', 'preferences', 'goals']">Set Workout Goals</a>
-  </div>
 
-  <div class="main_container">
-    <router-outlet></router-outlet>
-  </div>
+    <!-- Set Default Gym Input -->
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-icon>fitness_center</mat-icon>Set Default Gym
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+            *Input name or address of your gym
+        </mat-panel-description>
+        <mat-form-field>
+            <input matNativeControl type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="search..." autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+        </mat-form-field>
+
+        <div id="gym_info" [hidden]="!show" [style.background]='img' style="background-position: 50%;" class="place_container">
+            <div class="place_info">
+                <h1 class="gym_title text-center"><a href="{{gym.url}}">{{gym.name}}</a></h1>
+                <div class="place_info align-top d-inline-block">
+                    <p class="mt-3">Address: {{gym.formatted_address}}</p>
+                    <p>Phone: {{gym.formatted_phone_number}}</p>
+                    <span [hidden]="gym.place_id == self.default_gym">
+                        <button mat-raised-button color="accent" (click)="setDefaultGym(gym.place_id)">Set Default</button>
+                    </span>
+                    <span [hidden]="gym.place_id != self.default_gym">
+                        <div class="mt-3">
+                            <p><span style="color: red">This is your default gym</span></p>
+                           <p class="mt-3"><span style="color: white">Click <button mat-flat-button color="warn" [routerLink]="['/main','default']">Here</button> to go to your gym page</span></p>
+                        </div>
+                    </span>
+                </div>
+            </div>    
+        </div>
+        <mat-action-row>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    
+      <!-- Set Gym Schedule -->
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-icon>calendar_today</mat-icon>Set Gym Schedule
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+    
+        <mat-panel-description>
+            *Input the time for each workout day
+        </mat-panel-description>
+      
+        <!-- Gym Schedule Table -->
+        <div class="table_container">
+            <form id="schedule" (submit)="updateSchedule()">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Day</th>
+                        <th scope="col">Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Monday</th>
+                        <td><input atp-time-picker [(ngModel)]="schedule.mon" name="mon"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Tuesday</th>
+                        <td><input atp-time-picker [(ngModel)]="schedule.tues" name="tues"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Wednesday</th>
+                        <td><input atp-time-picker [(ngModel)]="schedule.wed" name="wed"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Thursday</th>
+                        <td><input atp-time-picker [(ngModel)]="schedule.thurs" name="thurs"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Friday</th>
+                        <td><input atp-time-picker [(ngModel)]="schedule.fri" name="fri"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Saturday</th>
+                        <td><input atp-time-picker [(ngModel)]="schedule.sat" name="sat"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Sunday</th>
+                        <td><input atp-time-picker [(ngModel)]="schedule.sun" name="sun"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                <button mat-stroked-button color="primary" type="submit">Update</button>
+              </form>
+        </div>
+    
+        <mat-action-row>
+        
+          <button mat-button color="warn" (click)="prevStep()">Previous</button>
+          <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    
+      <!-- Set Goals -->
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon>poll</mat-icon> Set Workout Goals
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+           <form (submit)="updateGoals()">
+             <div class="gender_div">
+                <h5>Would you prefer a male or female gym partner?</h5>
+                <mat-form-field>
+                  <mat-label>Gender preference</mat-label>
+                  <mat-select required [(value)]="preference.gender">
+                    <mat-option>--</mat-option>
+                    <mat-option value="male">Male</mat-option>
+                    <mat-option value="female">Female</mat-option>
+                    <mat-option value="none">No Preference</mat-option>
+                  </mat-select>
+                  <!-- <mat-error *ngIf="selectFormControl.hasError('required') && preference.gender === ''">Please choose a gender</mat-error> -->
+                </mat-form-field>
+             </div>
+
+             <div class="goals_container">
+                <mat-panel-description>
+                    *Select all that applies, minimum of 1
+                </mat-panel-description>
+                <label><mat-checkbox style="line-height: 50px !important; margin-left: 10px;" color="primary" class="category" name="weight_loss" [(ngModel)]="preference.weight_loss">Weight Loss</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="cardio" [(ngModel)]="preference.cardio">Cardio Fitness</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="endurance" [(ngModel)]="preference.endurance">Endurance</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="flexibility" [(ngModel)]="preference.flexibility">Flexibility</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="muscle" [(ngModel)]="preference.muscle">Building Muscle</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="strength" [(ngModel)]="preference.strength">Strength Training</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="genFit" [(ngModel)]="preference.genFit">General Health</mat-checkbox></label>
+             </div>
+             <button style="margin: 0 3%;" mat-stroked-button type="submit" color="primary">Update</button>
+           </form>
+      
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+    
+    </mat-accordion>
 </div>

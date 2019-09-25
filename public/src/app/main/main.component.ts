@@ -45,7 +45,6 @@ export class MainComponent implements OnInit {
       this.self = data;
       localStorage.setItem('gym', this.self.default_gym);
       if(!data['preference'] || !data['schedule']){
-        console.log('preferences has not yet been set');
         this._router.navigate(['/main', 'preferences'])
       }
     })

@@ -12,7 +12,6 @@ export class AuthService {
     return this._http.post<any>('/registerUser', user);
   }
   loginUser(user){
-
       return this._http.post<any>('/loginUser', user);
   }
   loggedIn(){

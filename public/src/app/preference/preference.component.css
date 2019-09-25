@@ -1,15 +1,62 @@
-
-
-.pref_options, .main_container {
-  margin: 2%;
+::ng-deep .mat-form-field-wrapper{
+  width: 600px !important;
+  margin-left: 4%;
 }
-
-.pref_options > a::after{
-  margin: 0 2%;
-  content: "/";
+.input_container, .place_container{
+  margin-top: 2%;
+}
+.mat-expansion-panel-header-description {
+  margin-left: 20px;
   color: black;
 }
+.mat-action-row{
+  justify-content: none !important;
+}
 
-.pref_options > a:last-child::after{
-  content: '';
+.pref_container, .goals_container{
+  width: 75%;
+  margin: 2%;
+}
+.place_container{
+  width: 550px;
+  margin: 0 2%;
+  background-position-x: 50% !important;
+  background-position-y: 50% !important;
+  height: 450px;
+  color:white;
+  text-align: center;
+  display: flex;
+  align-items:center ;
+  flex-direction: column;
+}
+
+.gym_title {
+  margin-top: 125px;
+}
+.place_info{
+  opacity: 1;
+}
+.table_container, .gender_div {
+  margin: 2%;
+}
+.table_container input{
+  text-align: center;
+}
+
+.mat-icon{
+  margin-right: 2%;
+}
+
+.gender_div h5{
+  margin-left: 2%;
+}
+
+
+.goals_container label{
+  width: 150px;
+  height: 50px;
+  border: 3px solid #9C27B0;
+  border-radius: 10px;
+  margin: 1% 1%;
+  
 }
