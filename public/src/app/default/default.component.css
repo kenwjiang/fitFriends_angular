@@ -1,6 +1,6 @@
 /* FontAwesome for working BootSnippet :> */
 
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+/* @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 #team {
     background: #eee !important;
 }
@@ -133,4 +133,34 @@ h5.section-title.h1{
 }
 section{
   border-radius: 10px;
+} */
+.title_container{
+    width: 100%;
+    margin: 2% auto;
+    text-align: center;
+}
+
+.card {
+    width: 400px;
+    display: inline-block;
+    height: 650px;
+    vertical-align: top;
+    margin: 2%
+}
+.card_info, .schedule_info {
+    height: 175px;
+    width: 45%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 1% auto;
+}
+
+@media only screen and (max-width: 401px){
+    .card {
+        width: 95%;
+        height: auto !important;
+    }
+    .card_info, .schedule_info{
+        height: auto !important;
+    }
 }

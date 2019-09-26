@@ -43,7 +43,8 @@ export class PreferenceComponent implements OnInit {
   ngOnInit() {
     this.show = false;
     this.self = {
-      default_gym: ''
+      default_gym: '',
+      _id: ''
     };
     this.schedule= {
       mon: '',
@@ -62,7 +63,7 @@ export class PreferenceComponent implements OnInit {
       place_id: ''
     }
     this.preference = {
-      weight_loss:null, cardio:null, endurance:null, flexibility: null, muscle:null, strength: null, genFit:null, gender:""
+      user_id: localStorage.getItem('id'), weight_loss:false, cardio:false, endurance:false, flexibility: false, muscle:false, strength: false, genFit:false, gender:""
     };
 
     this.getSelf();
@@ -79,7 +80,7 @@ export class PreferenceComponent implements OnInit {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = this.autocomplete.getPlace();
-          this.autocomplete.get
+          // this.autocomplete.get
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
@@ -94,9 +95,13 @@ export class PreferenceComponent implements OnInit {
 
   getSelf(){
     this.userService.getSelf(localStorage.getItem('id')).subscribe(data=> {
-      this.schedule = data['schedule'];
       this.self = data;
-      this.preference = data['preference'];
+      if(data['schedule']){
+        this.schedule = data['schedule'];
+      }
+      if(data['preference']){
+        this.preference = data['preference'];
+      }
       this.selectFormControl =  new FormControl(this.preference['gender'], Validators.required);
     })
   }
@@ -109,13 +114,15 @@ export class PreferenceComponent implements OnInit {
   }
 
   updateGoals(){
+    console.log('preference', this.preference);
     this.prefService.updateGoals({id: localStorage.getItem('id'), goals:this.preference})
     .subscribe(data=>{
-      this.preference = data['preference'];
       this.getSelf();
     })
   }
   setDefaultGym(id){
+    localStorage.setItem('gym', id);
+    console.log(localStorage.getItem('gym'));
     this.mapService.setDefault({id: localStorage.getItem('id'), gym_id: id})
     .subscribe(data=>{
       this.self.default_gym = data['default_gym'];

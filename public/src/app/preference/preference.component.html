@@ -9,7 +9,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-panel-description>
-            *Input name or address of your gym
+            *Input name of your gym
         </mat-panel-description>
         <mat-form-field>
             <input matNativeControl type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="search..." autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
@@ -113,6 +113,7 @@
            <form (submit)="updateGoals()">
              <div class="gender_div">
                 <h5>Would you prefer a male or female gym partner?</h5>
+                <input type="hidden" [(value)]="preference.user_id">
                 <mat-form-field>
                   <mat-label>Gender preference</mat-label>
                   <mat-select required [(value)]="preference.gender">
@@ -129,20 +130,19 @@
                 <mat-panel-description>
                     *Select all that applies, minimum of 1
                 </mat-panel-description>
-                <label><mat-checkbox style="line-height: 50px !important; margin-left: 10px;" color="primary" class="category" name="weight_loss" [(ngModel)]="preference.weight_loss">Weight Loss</mat-checkbox></label>
-                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="cardio" [(ngModel)]="preference.cardio">Cardio Fitness</mat-checkbox></label>
-                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="endurance" [(ngModel)]="preference.endurance">Endurance</mat-checkbox></label>
-                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="flexibility" [(ngModel)]="preference.flexibility">Flexibility</mat-checkbox></label>
-                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="muscle" [(ngModel)]="preference.muscle">Building Muscle</mat-checkbox></label>
-                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="strength" [(ngModel)]="preference.strength">Strength Training</mat-checkbox></label>
-                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  class="category" name="genFit" [(ngModel)]="preference.genFit">General Health</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important; margin-left: 10px;" color="primary" name="weight_loss" [(ngModel)]="preference.weight_loss">Weight Loss</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  name="cardio" [(ngModel)]="preference.cardio">Cardio Fitness</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  name="endurance" [(ngModel)]="preference.endurance">Endurance</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  name="flexibility" [(ngModel)]="preference.flexibility">Flexibility</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  name="muscle" [(ngModel)]="preference.muscle">Building Muscle</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  name="strength" [(ngModel)]="preference.strength">Strength Training</mat-checkbox></label>
+                <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  name="genFit" [(ngModel)]="preference.genFit">General Health</mat-checkbox></label>
              </div>
              <button style="margin: 0 3%;" mat-stroked-button type="submit" color="primary">Update</button>
            </form>
       
           <mat-action-row>
             <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
           </mat-action-row>
         </mat-expansion-panel>
     

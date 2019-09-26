@@ -35,6 +35,18 @@ const ChatSchema = new mongoose.Schema({
     }]
 });
 
+const PreferenceSchema = new mongoose.Schema ({
+  user_id: {type: Schema.Types.ObjectId, ref: "User"},
+  weight_loss: {type: Boolean, default:false},
+  cardio: {type: Boolean, default:false},
+  endurance: {type: Boolean, default:false},
+  flexibility: {type: Boolean, default:false},
+  muscle: {type: Boolean, default:false},
+  strength: {type: Boolean, default:false},
+  genFit: {type: Boolean, default:false},
+  gender: {type: String, default:''},
+})
+
 const ScheduleSchema = new mongoose.Schema ({
   mon: {type: String, default: null},
   tues: {type: String, default: null},
@@ -44,17 +56,7 @@ const ScheduleSchema = new mongoose.Schema ({
   sat: {type: String, default: null},
   sun: {type: String, default: null}
 })
-const PreferenceSchema = new mongoose.Schema({
-  user_id: {type: Schema.Types.ObjectId, ref: "User"},
-  gender: {type: String, required: [true, 'Please select a gender preference.']},
-  weight_loss: {type: Boolean, default: false},
-  cardio: {type: Boolean, default: false},
-  endurance: {type: Boolean, default: false},
-  flexibility: {type: Boolean, default: false},
-  strength: {type: Boolean, default: false},
-  muscle: {type: Boolean, default: false},
-  genFit: {type: Boolean, default: false}
-})
+
 
 const UserSchema = new mongoose.Schema({
     fname: {
@@ -109,11 +111,13 @@ mongoose.model("Schedule", ScheduleSchema);
 mongoose.model("User", UserSchema);
 const Chatroom = mongoose.model('Chat');
 const User = mongoose.model('User');
+const Pref = mongoose.model('Preference');
 
 UserSchema.plugin(uniqueValidator, {message: "This user already exists in our database!"})
 mongoose.Promise = global.Promise;
 
 module.exports = {
     User: User,
-    Chatroom: Chatroom
+    Chatroom: Chatroom,
+    Pref: Pref
 }

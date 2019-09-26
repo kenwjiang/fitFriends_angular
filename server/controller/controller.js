@@ -126,6 +126,7 @@ module.exports = {
 
   updateGoals: (req, res) => {
     model.User.findOneAndUpdate({_id:req.body.id}, {$set: {preference: {
+      user_id: req.body.id,
       gender: req.body.goals.gender,
       weight_loss: req.body.goals.weight_loss,
       cardio: req.body.goals.cardio,

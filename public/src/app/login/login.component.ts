@@ -26,11 +26,16 @@ export class LoginComponent implements OnInit {
       .subscribe(
           res=> {
               this.userService.getSelf(res.user._id);
-              localStorage.setItem('token', res.token);
-              localStorage.setItem('id', res.user._id);
+            console.log('login res', res);
+              localStorage.setItem('gym', res['user']['default_gym']);
+              localStorage.setItem('token', res['token']);
+              localStorage.setItem('id', res['user']['_id']);
               this._router.navigate(['/main', 'default']);
           },
-          err=> console.log("received error", err)
+          err=> {
+            console.log("received error", err);
+            this._router.navigate(['/login']);
+          }
       )
   }
 

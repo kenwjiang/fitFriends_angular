@@ -14,11 +14,11 @@ io.on("connection", socket => {
     };
 
     socket.on('getAllChats', id => {
-      console.log("here at socketsjs");
       model.Chatroom.find({
-        $or: [
-          {host:id},
-          {guest:id}]
+        $and:([
+          {$or: [{host:id}, {guest:id}]},
+          {'msg.0': {"$exists": true}}
+        ])
         })
         .populate('host', 'username')
         .populate('guest', 'username')

@@ -1,35 +1,49 @@
-<section id="team" class="pb-5">
-    <div class="card_container">
-        <h5 class="section-title h1">Chat!</h5>
-        <div class="row">
-            <!-- Team member -->
-            <div *ngFor="let member of members" class="col-xs-12 col-sm-6 col-md-4">
-              <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                <div class="mainflip">
-                    <div class="frontside">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <h4 class="card-title">{{member.username}}</h4>
-                                <p class="card-text">Description of member</p>
-                                <p class="card-text">Hover to see schedule + chat button</p>
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="backside">
-                        <div class="card">
-                            <div class="card-body text-center mt-4">
-                                <h4 class="card-title">Chat with me</h4>
-                                <p class="card-text">Schedule table would be here alongside some side preferences</p>
-                                <button class="btn btn-success" style="background-color: #007B5D" (click)="createChat(member._id)">Chat</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-              </div>
-            </div>
-            <!-- ./Team member -->
 
-        </div>
-</section>
+
+<div class="gym_container">
+
+    <div class="title_container">
+        <h1>{{gym.name}}</h1>
+        <p>{{gym.formatted_address}}</p>
+    </div>
+
+    <div class="card_container">
+        <mat-card class="card shadow" *ngFor="let member of members">
+            <span *ngIf="member.ranking > 0">
+                <mat-card-header>
+                    <mat-card-title>{{member.fname | titlecase}} {{member.lname | titlecase}}</mat-card-title>
+                </mat-card-header>
+                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="filler">
+                <mat-card-content>
+                    <div class="card_info">
+                    <h5> Fitness goals</h5>
+                    <span *ngFor="let pref of member.preference | keyvalue">
+                            <li *ngIf="(pref.key == 'weight_loss') && (pref.value == true)">Weight Loss</li>
+                            <li *ngIf="(pref.key == 'cardio') && (pref.value == true)">Cardio</li>
+                            <li *ngIf="(pref.key == 'endurance') && (pref.value == true)">Endurance</li>
+                            <li *ngIf="(pref.key == 'flexibility') && (pref.value == true)">Flexibiliy</li>
+                            <li *ngIf="(pref.key == 'genFit') && (pref.value == true)">General Fitness</li>
+                            <li *ngIf="(pref.key == 'muscle') && (pref.value == true)">Muscle Building</li>
+                            <li *ngIf="(pref.key == 'strength') && (pref.value == true)">Strength Training</li>
+                    </span>
+                </div>
+                <div class="schedule_info">
+                    <h5>Schedule</h5>
+                    <li>Monday: {{member.schedule.mon | time24to12Transform}}</li>
+                        <li>Tuesday: {{member.schedule.tues | time24to12Transform}}</li>
+                        <li>Wednesday: {{member.schedule.wed | time24to12Transform}}</li>
+                        <li>Thursday: {{member.schedule.thurs | time24to12Transform}}</li>
+                        <li>Friday: {{member.schedule.fri | time24to12Transform}}</li>
+                        <li>Saturday: {{member.schedule.sat | time24to12Transform}}</li>
+                        <li>Sunday: {{member.schedule.sun | time24to12Transform}}</li>
+                </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button color="primary">Chat</button>
+                </mat-card-actions>
+            </span>
+        </mat-card>
+    </div>
+</div>
+
+<div hidden="true" id="map"></div>

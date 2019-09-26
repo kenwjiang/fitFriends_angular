@@ -43,11 +43,11 @@
      </div>
 
       <label id="gender_label" for="gender" class="fadeIn second">Select gender: </label>
-      <input type="radio" [(ngModel)]="newUser.gender" name="gender" value="male" class="fadeIn second"><label for="gender" class="fadeIn second">Male</label>
-      <input type="radio" [(ngModel)]="newUser.gender" name="gender" value="female" class="fadeIn second"><label for="gender" class="fadeIn second">Female</label>
-      <input type="radio" [(ngModel)]="newUser.gender" name="gender" value="other" class="fadeIn second"><label for="gender" class="fadeIn second">Other</label>
+      <input type="radio" (click)="genderSelected()" [(ngModel)]="newUser.gender" name="gender" value="male" class="fadeIn second"><label for="gender" class="fadeIn second">Male</label>
+      <input type="radio" (click)="genderSelected()" [(ngModel)]="newUser.gender" name="gender" value="female" class="fadeIn second"><label for="gender" class="fadeIn second">Female</label>
+      <input type="radio" (click)="genderSelected()" [(ngModel)]="newUser.gender" name="gender" value="other" class="fadeIn second"><label for="gender" class="fadeIn second">Other</label>
 
-      <input type="submit" [disabled]="(firstName.invalid || lastName.invalid || email.invalid || password.invalid || dob.invalid)" class="fadeIn fourth" value="Register">
+      <input type="submit" [disabled]="(firstName.invalid || lastName.invalid || email.invalid || password.invalid || dob.invalid || !selected)" class="fadeIn fourth" value="Register">
     </form>
 
     <div id="formFooter">
