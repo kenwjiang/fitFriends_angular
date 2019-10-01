@@ -1,16 +1,19 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { Observable, Subscription } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
 export class SocketsService implements OnInit, OnDestroy {
-  allMessages = this.socket.fromEvent<any[]>('posted');
-  chatrooms = this.socket.fromEvent<string[]>("refreshChat");
+  chatrooms = this.socket.fromEvent<Observable<any[]>>("allChatrooms");
+  currentRoom = this.socket.fromEvent<Observable<any>>('currentChat');
+
+
   constructor(
     private socket: Socket
   ) { }
   ngOnInit(){
-
   }
   ngOnDestroy(){
   }
@@ -19,14 +22,14 @@ export class SocketsService implements OnInit, OnDestroy {
   postMsg(data){
     this.socket.emit('postMsg', data);
   }
-  setChatroom(id){
-    this.socket.emit('setChatroom', id)
-  }
+
   createChat(data){
     this.socket.emit('createChat', data);
   }
+  getChatroom(room_id){
+    this.socket.emit('getChatroom', room_id)
+  }
   getAllChats(id: string){
-    console.log("here at get all chats");
     this.socket.emit('getAllChats', id)
   }
 }

@@ -1,12 +1,25 @@
-<div class="message_display">
-  <div *ngFor="let msg of roomMsgs" class="eachMsg">
-    <p>{{msg.sender.username}} said: {{msg.message}}</p>
-  </div>
-</div>
+<div class="chatbox_container">
+  <div id="box" #box class="message_display">
 
-<div class="input_field">
-  <form (submit)="sendMsg()">
-    <input type="text" name ="msgToSend" [(ngModel)]="msgToSend" placeholder="Type message here..">
-    <button type="submit" class="btn btn-primary">Send</button>
-  </form>
-</div>
+      <div *ngFor="let msg of roomData">
+
+        <div *ngIf="msg.sender._id == self_id" class="self_msg">
+          <p>You said: {{msg.message}}</p>
+        </div>
+
+        <div *ngIf="msg.sender._id != self_id" class="self_msg">
+          <p>{{msg.sender.fname | titlecase }} said: {{msg.message}}</p>
+        </div>
+
+      </div>
+    </div>
+    
+    <div class="input_field">
+      <form (submit)="sendMsg()">
+        <input type="text" name ="msgToSend" [(ngModel)]="msgToSend" placeholder="Type message here..">
+        <button type="submit" class="btn btn-primary">Send</button>
+      </form>
+    </div>
+  </div>    
+    
+      

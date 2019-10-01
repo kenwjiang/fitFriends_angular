@@ -1,11 +1,15 @@
+.chatbox_container {
+  left: 300px;
+  overflow: hidden;
+  height: 100%;
+  width: 50%;
+}
 .message_display {
-  height: 50vh;
+  height: 80%;
   border: 2px solid black;
-  width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
   margin: 2%;
 }
-
 
 .eachMsg p {
   margin: 2%;

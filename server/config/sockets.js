@@ -6,6 +6,7 @@ const model = require('../models/model');
 
 
 io.on("connection", socket => {
+
     let previousId;
     const safeJoin = currentId => {
         socket.leave(previousId);
@@ -20,8 +21,9 @@ io.on("connection", socket => {
           {'msg.0': {"$exists": true}}
         ])
         })
-        .populate('host', 'username')
-        .populate('guest', 'username')
+        .populate('host')
+        .populate('guest')
+        .populate('msg.sender')
         .exec((err, data) => {
           if(err){
               console.log('Err')
@@ -31,22 +33,68 @@ io.on("connection", socket => {
       })
     })
 
-    socket.on('getChatroom', roomId => {
+    // socket.on('subscribeChats', id=>{
+    //   model.Chatroom.find({
+    //     $and:([
+    //       {$or: [{host:id}, {guest:id}]},
+    //       {'msg.0': {"$exists": true}}
+    //     ])
+    //     })
+    //     .populate('host')
+    //     .populate('guest')
+    //     .exec((err, data) => {
+    //       if(err){
+    //           console.log('Err')
+    //       } else {
+    //         console.log('rooms', data.length);
+    //         socket.emit('numRooms', data.length);
+    //       }
+    //   })
 
+    // })
+
+    socket.on('getChatroom', roomId => {
         safeJoin(roomId);
-        socket.emit('currentChat', controller.getChatroom(roomId));
+          model.Chatroom
+          .findOne({chatroom_id: roomId})
+          .populate('host')
+          .populate('guest')
+          .populate('msg.sender')
+          .exec((err, data)=> {
+              if(err){
+                  console.log('err', err);
+              } else {
+                  io.in(data.chatroom_id).emit('currentChat', data);
+            }
+          }
+        )
     });
 
     socket.on('postMsg', data => {
       model.Chatroom.findOneAndUpdate({chatroom_id: data.chatroom_id}, {$push: {
         msg: {
           sender: data.sender_id,
-          message: data.msg
+          message: data.msg,
+          delivered: true,
+          read: false
         }
-      }}, (err, data)=> {
+      }}, (err, res)=> {
         if(err){
+          console.log('error', err);
         } else {
-          io.emit('posted', data);
+          model.Chatroom.findOne({chatroom_id: res.chatroom_id})
+            .populate('host')
+            .populate('guest')
+            .populate('msg.sender')
+            .exec((err,data)=> {
+              if(err){
+                console.log(err);
+              } else {
+                console.log('msgData', data);
+                io.in(data.chatroom_id).emit('currentChat', data);  
+              }
+            })
+          
         }
       }
     )
@@ -61,14 +109,11 @@ io.on("connection", socket => {
           if(err) {
             console.log("err", err);
           } else {
-            io.emit('refreshChat', res);
+
           }
       });
     });
 
-
-
-    io.emit('chatrooms', app.get(controller.getAllRooms));
 })
 
 http.listen(4444, ()=>{

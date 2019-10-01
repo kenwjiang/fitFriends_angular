@@ -1,14 +1,23 @@
 
-<div class="chat_container">
-  <div class='sidenav col-sm-2'>
-    <div *ngFor="let room of allRooms" class="chatrooms col-sm-4">
-      <span *ngIf="room.guest._id === self_id">  <a [routerLink]="['/app', 'chat', room.chatroom_id]">{{room.host.username}}</a></span>
-      <span *ngIf="room.host._id === self_id">  <a [routerLink]="['/app', 'chat', room.chatroom_id]">{{room.guest.username}}</a></span>
-    </div>
-  </div>
-
-  <div class="chatbox col-sm-8 col-md-8">
-  <router-outlet></router-outlet>
-  </div>
-
+<div class="msg_container">
+  <mat-sidenav-container class="msg_sidenav">
+    <mat-sidenav opened mode="side" class="users_list">
+      <h1>Chats</h1>
+      <mat-nav-list>
+        <mat-nav-list>
+          <span *ngFor="let room of allRooms">
+  
+            <span *ngIf="room.guest._id == self_id">
+                <a mat-list-item [routerLink]="['/main/chat/', room.chatroom_id]">{{room.host.fname | titlecase}} {{room.host.lname | titlecase }}</a>
+            </span>
+            <span *ngIf="room.host._id == self_id">
+                <a mat-list-item [routerLink]="['/main/chat/', room.chatroom_id]">{{room.guest.fname|titlecase}} {{room.guest.lname | titlecase }}</a>
+            </span>
+          </span>
+        </mat-nav-list>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav opened mode="side" position="end" >end content</mat-sidenav>
+    <router-outlet></router-outlet>
+  </mat-sidenav-container>
 </div>
