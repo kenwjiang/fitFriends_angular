@@ -32,23 +32,24 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     this._router.events.subscribe(
         (event: Event) => {
             if (event instanceof NavigationEnd) {
-              this.currentRoom();
+              this.currentRoom(this.room_id);
             }
    });
    this._room = this.socketsService.currentRoom.subscribe(data=> {
-     this.roomData = this.setRead(data['msg']);
-      console.log(this.roomData);
+     data['msg'] = this.setMsgRead(data['msg']);
+     this.roomData = data['msg'];
+     this.setRead(data);
    })
 
-    this.currentRoom();
+    this.currentRoom(this.room_id);
   }
   ngOnDestroy(){
     this._room.unsubscribe();
   }
 
 
-  currentRoom(){
-    this.socketsService.getChatroom(this.room_id);
+  currentRoom(id){
+    this.socketsService.getChatroom(id);
   }
 
 
@@ -56,17 +57,25 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     this.socketsService.postMsg({chatroom_id: this.room_id, msg:this.msgToSend, sender_id: localStorage.getItem('id')});
     this.msgToSend='';
   }
+  setRead(data) {
+    data['self_id'] = this.self_id;
+    this.socketsService.setRead(data);
+  }
 
-  private setRead(array){
-    let i = array.length-1;
-    while(i >= 0) {
-      if(array[i]['read'] == false) {
-        array[i]['read'] = true;
-        i--;
-      }else {
-        break;
+  private setMsgRead(array){
+    if(array) {
+      let i = array.length -1;
+      while (i >= 0){
+        if(array[i]['sender']['_id'] != this.self_id && array[i]['read'] == false ){
+          array[i]['read'] = true;
+          i--;
+        } else if (array[i]['sender']['_id'] != this.self_id && array[i]['read'] == true) {
+          return array;
+        } else {
+          i--;
+        }
       }
+      return array;
     }
-    return array
   }
 }

@@ -31,14 +31,27 @@ export class ChatComponent implements OnInit {
     this.socketsService.getAllChats(this.self_id);
   }
 
-  private checkUnreadChats(array) {
+  setRead(data) {
+    this.socketsService.setRead(data)
+  }
+
+  private checkUnreadChats(array){
     for(let i = 0; i < array.length; i ++) {
-      for(let j = array[i]['msg'].length-1; j >=0; j --) {
-        if( array[i]['msg'][j]['read'] == false) {
-          array[i]['unread'] = true;
-          return array;
-        } else {
-          break
+      if(array[i]['msg']){
+        let msg = array[i]['msg'];
+        for(let j = msg.length - 1; j >= 0; j--){
+          if(msg[j]['sender']['_id'] != this.self_id && msg[j]['read'] == false) {
+            array[i]['read'] = false;
+            break;
+          } else if (msg[j]['sender']['_id'] != this.self_id && msg[j]['read'] == true){
+            array[i]['read'] = true;
+            break;
+          } else {
+            continue;
+          }
+        }
+        if(array[i]['read'] == null){
+          array[i]['read'] = true;
         }
       }
     }

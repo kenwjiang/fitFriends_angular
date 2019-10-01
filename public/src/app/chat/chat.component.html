@@ -8,10 +8,10 @@
           <span *ngFor="let room of allRooms">
   
             <span *ngIf="room.guest._id == self_id">
-                <a mat-list-item [routerLink]="['/main/chat/', room.chatroom_id]">{{room.host.fname | titlecase}} {{room.host.lname | titlecase }}</a>
+                <a mat-list-item [routerLink]="['/main/chat/', room.chatroom_id]">{{room.host.fname | titlecase}} {{room.host.lname | titlecase }}<span style="margin-left: 2%;" [hidden]="room.read" matBadge="!"  matBadgeColor="warn" matBadgeOverlap="false"></span></a>
             </span>
             <span *ngIf="room.host._id == self_id">
-                <a mat-list-item [routerLink]="['/main/chat/', room.chatroom_id]">{{room.guest.fname|titlecase}} {{room.guest.lname | titlecase }}</a>
+                <a mat-list-item [routerLink]="['/main/chat/', room.chatroom_id]">{{room.guest.fname|titlecase}} {{room.guest.lname | titlecase }}<span style="margin-left: 2%;" [hidden]="room.read" matBadge="!"  matBadgeColor="warn" matBadgeOverlap="false"></span></a>
             </span>
           </span>
         </mat-nav-list>

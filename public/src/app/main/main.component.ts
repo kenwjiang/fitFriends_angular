@@ -51,10 +51,11 @@ export class MainComponent implements OnInit {
   }
 
   ngOnChanges(){
-    this.unread = this.checkUnread(this.chatrooms);
+    // this.unread = this.checkUnread(this.chatrooms);
   }
   ngOnDestroy():void{
     this.mobileQuery.removeListener(this._mobileQueryListener);
+    this._sub.unsubscribe();
   }
 
   checkPref(){
@@ -80,9 +81,15 @@ export class MainComponent implements OnInit {
 
   private checkUnread(array){
     for(let i = 0; i< array.length; i++){
-      for( let j = array[i]['msg'].length-1; j >= 0; j--) {
-        if(array[i]['msg'][j]['read'] == false) {
-          return true;
+      if(array[i]['msg']){
+        for( let j = array[i]['msg'].length-1; j >= 0; j--) {
+          if(array[i]['msg'][j]['sender']['_id'] != this.self_id && array[i]['msg'][j]['read'] == false) {
+            return true;
+          } else if (array[i]['msg'][j]['sender']['_id'] != this.self_id && array[i]['msg'][j]['read'] == true){
+            return false;
+          } else {
+            continue;
+          }
         }
       }
     }

@@ -111,13 +111,11 @@ mongoose.model("Schedule", ScheduleSchema);
 mongoose.model("User", UserSchema);
 const Chatroom = mongoose.model('Chat');
 const User = mongoose.model('User');
-const Pref = mongoose.model('Preference');
 
 UserSchema.plugin(uniqueValidator, {message: "This user already exists in our database!"})
 mongoose.Promise = global.Promise;
 
 module.exports = {
     User: User,
-    Chatroom: Chatroom,
-    Pref: Pref
+    Chatroom: Chatroom
 }

@@ -8,7 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 export class SocketsService implements OnInit, OnDestroy {
   chatrooms = this.socket.fromEvent<Observable<any[]>>("allChatrooms");
   currentRoom = this.socket.fromEvent<Observable<any>>('currentChat');
-
+  
 
   constructor(
     private socket: Socket
@@ -31,5 +31,8 @@ export class SocketsService implements OnInit, OnDestroy {
   }
   getAllChats(id: string){
     this.socket.emit('getAllChats', id)
+  }
+  setRead(data) {
+    this.socket.emit('setRead', data);
   }
 }
