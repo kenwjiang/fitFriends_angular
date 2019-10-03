@@ -2,22 +2,23 @@
 <div class="msg_container">
   <mat-sidenav-container class="msg_sidenav">
     <mat-sidenav opened mode="side" class="users_list">
-      <h1>Chats</h1>
-      <mat-nav-list>
+      <h2 style="margin: 4%;"><mat-icon>forum</mat-icon><span style="margin: 0 2%;">Chats</span></h2>
         <mat-nav-list>
           <span *ngFor="let room of allRooms">
   
             <span *ngIf="room.guest._id == self_id">
+                <mat-divider></mat-divider>
                 <a mat-list-item [routerLink]="['/main/chat/', room.chatroom_id]">{{room.host.fname | titlecase}} {{room.host.lname | titlecase }}<span style="margin-left: 2%;" [hidden]="room.read" matBadge="!"  matBadgeColor="warn" matBadgeOverlap="false"></span></a>
             </span>
             <span *ngIf="room.host._id == self_id">
+                <mat-divider></mat-divider>
                 <a mat-list-item [routerLink]="['/main/chat/', room.chatroom_id]">{{room.guest.fname|titlecase}} {{room.guest.lname | titlecase }}<span style="margin-left: 2%;" [hidden]="room.read" matBadge="!"  matBadgeColor="warn" matBadgeOverlap="false"></span></a>
             </span>
           </span>
+          
         </mat-nav-list>
-      </mat-nav-list>
+
     </mat-sidenav>
-    <mat-sidenav opened mode="side" position="end" >end content</mat-sidenav>
     <router-outlet></router-outlet>
   </mat-sidenav-container>
 </div>

@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import {SocketsService} from '../sockets.service'
 import {  Subscription, Observable } from 'rxjs';
 import { ActivatedRoute, Params, Router, NavigationEnd, Event } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-chatbox',
@@ -9,39 +10,52 @@ import { ActivatedRoute, Params, Router, NavigationEnd, Event } from '@angular/r
   styleUrls: ['./chatbox.component.css']
 })
 export class ChatboxComponent implements OnInit, OnDestroy {
+  @ViewChild('box', {static:false})
+   private box: any ;
+   
+
   room_id:string;
   msgToSend: string;
+  data: any;
+  self: any;
+  other_person: any;
   self_id: string;
   roomData:Observable<any[]>;
   private _room: Subscription;
 
-
-
-  
   constructor(
       private socketsService: SocketsService,
+      private userService: UserService,
       private _router: Router,
       private _route: ActivatedRoute,
   ) { }
   ngOnInit() {
     this.self_id = localStorage.getItem('id');
-
     this._route.params.subscribe((params: Params) => {
       this.room_id = (params['room_id']);
+      this.currentRoom(this.room_id);
     });
     this._router.events.subscribe(
         (event: Event) => {
             if (event instanceof NavigationEnd) {
               this.currentRoom(this.room_id);
+              setTimeout(()=> this.box.nativeElement.scrollTop = this.box.nativeElement.scrollHeight, 300 )
             }
    });
    this._room = this.socketsService.currentRoom.subscribe(data=> {
+     this.checkSender(data);
      data['msg'] = this.setMsgRead(data['msg']);
      this.roomData = data['msg'];
      this.setRead(data);
    })
+   this.userService.getSelf(this.self_id).subscribe(data=> {
+     this.self = data;
+     console.log(this.self);
+   })
+  }
+  ngAfterViewInit(){
+    setTimeout(()=> this.box.nativeElement.scrollTop = this.box.nativeElement.scrollHeight, 300 )
 
-    this.currentRoom(this.room_id);
   }
   ngOnDestroy(){
     this._room.unsubscribe();
@@ -60,6 +74,20 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   setRead(data) {
     data['self_id'] = this.self_id;
     this.socketsService.setRead(data);
+  }
+
+  private checkSender(data) {
+    if(data['host']['_id'] == this.self_id){
+      this.other_person = data['guest'];
+    } else {
+      this.other_person = data['host'];
+    }
+  }
+  
+  private getAge (date: any){
+    let today: any = new Date();
+    let bday: any  = new Date(date);
+    return Math.floor((today - bday) / (1000*60*60*24*365))
   }
 
   private setMsgRead(array){

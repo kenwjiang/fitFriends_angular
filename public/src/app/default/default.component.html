@@ -8,40 +8,78 @@
     </div>
 
     <div class="card_container">
-        <mat-card class="card shadow" *ngFor="let member of members">
-            <span *ngIf="member.ranking > 0">
-                <mat-card-header>
-                    <mat-card-title>{{member.fname | titlecase}} {{member.lname | titlecase}}</mat-card-title>
-                </mat-card-header>
-                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="filler">
-                <mat-card-content>
-                    <div class="card_info">
-                    <h5> Fitness goals</h5>
-                    <span *ngFor="let pref of member.preference | keyvalue">
-                            <li *ngIf="(pref.key == 'weight_loss') && (pref.value == true)">Weight Loss</li>
-                            <li *ngIf="(pref.key == 'cardio') && (pref.value == true)">Cardio</li>
-                            <li *ngIf="(pref.key == 'endurance') && (pref.value == true)">Endurance</li>
-                            <li *ngIf="(pref.key == 'flexibility') && (pref.value == true)">Flexibiliy</li>
-                            <li *ngIf="(pref.key == 'genFit') && (pref.value == true)">General Fitness</li>
-                            <li *ngIf="(pref.key == 'muscle') && (pref.value == true)">Muscle Building</li>
-                            <li *ngIf="(pref.key == 'strength') && (pref.value == true)">Strength Training</li>
-                    </span>
+        <mat-card class="card shadow" *ngFor="let member of members; let i = index">
+            <mat-card-header>
+                <mat-card-title>{{member.fname | titlecase}} {{member.lname | titlecase}}</mat-card-title>
+                <mat-card-subtitle>{{member.gender | titlecase}}, {{getAge(member.dob)}} yrs</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="filler">
+            <mat-card-content>
+                <div class="card-div-container">
+                <div class="card_info">
+                <h5> fitGoals</h5>
+
+                <button mat-fab color="primary" aria-label="Fitness goals" (mouseenter)="hover(i, 'goals')" (mouseleave)="hover(-1, null)">
+                    <mat-icon>post_add</mat-icon>
+                 </button>
+                <div [hidden]="!(i == hoverIndex)" class="hoverDiv shadow-lg">
+                        <div [hidden]="!goalsDiv" class="goals_info">
+                            <h5>Fitness goals</h5>
+                            <p>You have {{member.ranking}} goal matches</p>
+                            <mat-chip-list>
+                                <span *ngFor="let pref of member.preference | keyvalue">
+                                        <span *ngIf="(pref.key == 'weight_loss') && (pref.value == true)"><mat-chip color="primary" selected>Weight Loss</mat-chip></span>
+                                        <span *ngIf="(pref.key == 'cardio') && (pref.value == true)"><mat-chip color="primary" selected>Cardio</mat-chip></span>
+                                        <span *ngIf="(pref.key == 'endurance') && (pref.value == true)"><mat-chip color="primary" selected>Endurance</mat-chip></span>
+                                        <span *ngIf="(pref.key == 'flexibility') && (pref.value == true)"><mat-chip color="primary" selected>Flexibiliy</mat-chip></span>
+                                        <span *ngIf="(pref.key == 'genFit') && (pref.value == true)"><mat-chip color="primary" selected>General Fitness</mat-chip></span>
+                                        <span *ngIf="(pref.key == 'muscle') && (pref.value == true)"><mat-chip color="primary" selected>Muscle Building</mat-chip></span>
+                                        <span *ngIf="(pref.key == 'strength') && (pref.value == true)"><mat-chip color="primary" selected>Strength Training</mat-chip></span>
+                                </span>
+                            </mat-chip-list>
+                        </div>
+                        <div [hidden]="!scheduleDiv" class="schedule_div">
+                            <h5>Schedule</h5>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th class="scope">Mon</th>
+                                        <th class="scope">Tues</th>
+                                        <th class="scope">Wed</th>
+                                        <th class="scope">Thu</th>
+                                        <th class="scope">Fri</th>
+                                        <th class="scope">Sat</th>
+                                        <th class="scope">Sun</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span *ngIf="member.schedule.mon">{{member.schedule.mon | time24to12Transform}}</span></td>
+                                        <td><span *ngIf="member.schedule.tues">{{member.schedule.tues | time24to12Transform}}</span></td>
+                                        <td><span *ngIf="member.schedule.wed">{{member.schedule.wed | time24to12Transform}}</span></td>
+                                        <td><span *ngIf="member.schedule.thurs">{{member.schedule.thurs | time24to12Transform}}</span></td>
+                                        <td><span *ngIf="member.schedule.fri">{{member.schedule.fri | time24to12Transform}}</span></td>
+                                        <td><span *ngIf="member.schedule.sat">{{member.schedule.sat | time24to12Transform}}</span></td>
+                                        <td><span *ngIf="member.schedule.sun">{{member.schedule.sun | time24to12Transform}}</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                 </div>
-                <div class="schedule_info">
-                    <h5>Schedule</h5>
-                    <li>Monday: {{member.schedule.mon | time24to12Transform}}</li>
-                        <li>Tuesday: {{member.schedule.tues | time24to12Transform}}</li>
-                        <li>Wednesday: {{member.schedule.wed | time24to12Transform}}</li>
-                        <li>Thursday: {{member.schedule.thurs | time24to12Transform}}</li>
-                        <li>Friday: {{member.schedule.fri | time24to12Transform}}</li>
-                        <li>Saturday: {{member.schedule.sat | time24to12Transform}}</li>
-                        <li>Sunday: {{member.schedule.sun | time24to12Transform}}</li>
-                </div>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-button color="primary" (click)="createChat(member._id)">Chat</button>
-                </mat-card-actions>
-            </span>
+            </div>
+            <div class="schedule_info">
+                <h5>schedule</h5>
+
+                <button mat-fab color="primary" aria-label="Fitness goals" (mouseenter)="hover(i, 'schedule')" (mouseleave)="hover(-1, null)">
+                  <mat-icon>calendar_today</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <button mat-stroked-button class="chat_button" color="warn" (click)="createChat(member._id)">CHAT</button>
+
+            </mat-card-content>
+
         </mat-card>
     </div>
 </div>

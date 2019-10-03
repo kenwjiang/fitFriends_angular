@@ -1,14 +1,12 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const controller = require('../controller/controller.js');
 const model = require('../models/model');
 
 
 io.on("connection", socket => {
 
-    console.log('new connection!', socket.id);
-    
+
     let previousId;
     const safeJoin = currentId => {
         socket.leave(previousId);

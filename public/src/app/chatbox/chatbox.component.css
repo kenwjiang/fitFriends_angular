@@ -1,24 +1,109 @@
-.chatbox_container {
+*{
+  background-color: white;
+}
+.messaging_container {
   left: 300px;
-  overflow: hidden;
-  height: 100%;
+  margin-top: 75px;
+  height: 86%;
+  overflow: hidden !important;
+}
+
+.chatbox_container {
   width: 50%;
+  height: 100%;
+  vertical-align: top;
+  overflow:hidden;
+  margin-right: 2%;
+  border-right: 1px solid #dddddd;
 }
 .message_display {
-  height: 80%;
-  border: 2px solid black;
+  height: 85%;
   overflow-y: scroll;
+  border-radius: 10px;
   margin: 2%;
 }
 
-.eachMsg p {
-  margin: 2%;
-}
 
-.input_field, .input_field input, .input_field button{
+.input_field,  form{
   margin: 2%
 }
 
-.input_field input {
-  width: 75%;
+
+.chatbox_header {
+  height: 75px;
+  width: 100%;
+  position:fixed;
+  background-color: white;
+  z-index: 3;
+}
+.other_person{
+  margin-top: 15px;
+  margin-left: 30px;
+}
+.other_person p {
+  font-size: .8em;
+  color: grey;
+}
+
+.chat_msgs_container{
+  margin: 4% 2% 2% 2%; 
+  width: 95%;
+}
+.other_container, .self_container{
+  width: 100%;
+  display: flex;
+
+}
+.self_container{
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.self_msg {
+  padding: 5px 10px;
+  background-color: #AB47BC;
+  color: white;
+  border-radius: 15px;
+  max-width: 55%;
+}
+
+.other_msg {
+  margin-left: 0%;
+  background-color: #F1F0F0;
+  border-radius: 15px;
+  max-width: 60%;
+  padding: 5px 10px;
+}
+.self_msg, .other_msg {
+  margin: 1%;
+  overflow-wrap: break-word;
+}
+.other_member_container{
+  width: 40%;
+  vertical-align: top;
+}
+.other_person_info{
+  margin-top: 5%;
+}
+textarea{
+  width: 70%;
+  padding: 5px;
+  border: none;
+  resize: none;
+  border-radius: 10px;
+  margin: 2%;
+  background-color: #F5F5F5;
+}
+textarea:focus {
+  outline: none;
+}
+button {
+  vertical-align: top;
+  margin: 3% 2%;
+  color: #AB47BC;
+  border: none;
+}
+
+table td {
+  width: 13%;
 }

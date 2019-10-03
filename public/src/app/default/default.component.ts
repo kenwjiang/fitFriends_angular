@@ -21,6 +21,9 @@ export class DefaultComponent implements OnInit {
   members: any=[];
   service: any;
   gym: any;
+  hoverIndex: number;
+  goalsDiv: boolean;
+  scheduleDiv: boolean;
 
 
   constructor(
@@ -34,6 +37,9 @@ export class DefaultComponent implements OnInit {
   ngOnInit() {
     this.host_id = localStorage.getItem("id");
     this.gym={name: '', formatted_address:''};
+    this.hoverIndex = -1;
+    this.goalsDiv = false;
+    this.scheduleDiv = false;
     this.defaultGymPage();
 
     // init google api
@@ -61,6 +67,7 @@ export class DefaultComponent implements OnInit {
       this.userService.getGymMembers({self_id: this.self._id, gym_id:data['default_gym']})
       .subscribe(members=> {
         this.members = members;
+        console.log(this.members);
         this.matchingMembers();
       })
     })
@@ -111,6 +118,25 @@ export class DefaultComponent implements OnInit {
     // filter members by match count, gender of both parties, and gender preference of both parties.
     this.members = this.members.filter(el => ((el['ranking'] > 0) && (this.self['gender'] == el['preference']['gender']) && (this.self['preference']['gender'] == el['gender'])));
       
+  }
+
+  private hover(i, div){
+    this.hoverIndex = i;
+    if(div == 'goals') {
+      this.goalsDiv = true;
+    } else if (div == 'schedule'){
+      this.scheduleDiv = true;
+    } else {
+      this.goalsDiv = false;
+      this.scheduleDiv = false;
+    }
+  }
+
+  
+  private getAge (date: any){
+    let today: any = new Date();
+    let bday: any  = new Date(date);
+    return Math.floor((today - bday) / (1000*60*60*24*365))
   }
 
   //randomly generate chatroom id for socket chat

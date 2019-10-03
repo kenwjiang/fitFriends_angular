@@ -1,25 +1,90 @@
-<div class="chatbox_container">
-  <div id="box" #box class="message_display">
-
-      <div *ngFor="let msg of roomData">
-
-        <div *ngIf="msg.sender._id == self_id" class="self_msg">
-          <p>You said: {{msg.message}}</p>
-        </div>
-
-        <div *ngIf="msg.sender._id != self_id" class="self_msg">
-          <p>{{msg.sender.fname | titlecase }} said: {{msg.message}}</p>
-        </div>
-
-      </div>
+<div class="chatbox_header shadow">
+  <div class="other_person">
+      <span *ngIf="other_person">
+        <h5>{{other_person.fname | titlecase}} {{other_person.lname | titlecase}}</h5>
+        <p>{{other_person.gender | titlecase}}, {{getAge(other_person.dob)}} yrs</p>
+      </span>
     </div>
-    
-    <div class="input_field">
-      <form (submit)="sendMsg()">
-        <input type="text" name ="msgToSend" [(ngModel)]="msgToSend" placeholder="Type message here..">
-        <button type="submit" class="btn btn-primary">Send</button>
-      </form>
-    </div>
-  </div>    
+  </div>
+  <div class="messaging_container">
+      <div class="chatbox_container d-inline-block">
+        <div id="box" #box class="message_display">
+          <div class="chat_msgs_container">
+            <span *ngFor="let msg of roomData">
+      
+              <div [hidden]="(msg.sender._id != self_id)">
+                <div class="self_container">
+                    <p class="self_msg">{{msg.message}}</p>
+                </div>
+              </div>
+      
+              <div [hidden]="msg.sender._id == self_id">
+                <div class="other_container">
+                    <p class="other_msg">{{msg.message}}</p>
+                </div>
+              </div>
+      
+            </span>
+          </div>
+          </div>
+          
+        <div class="input_field">
+          <form (submit)="sendMsg()">
+            <textarea rows="1" name ="msgToSend" (keyup.enter)="sendMsg()" [(ngModel)]="msgToSend" placeholder="Type message here.."></textarea>
+            <button type="submit"><mat-icon>send</mat-icon></button>
+          </form>
+        </div>
+   </div>
+   <div class="other_member_container d-inline-block">
+     <div class="other_person_info">
+        <span *ngIf="other_person">
+          <div class="goal_matches">
+            <p>You and {{other_person.fname | titlecase}} share these goals</p>
+            <div class="common_list mb-3">
+            <mat-chip-list>
+                <span *ngFor="let pref of other_person.preference | keyvalue">
+                  <span *ngIf="((pref.key == 'weight_loss') && (pref.value == true)) && self.preference.weight_loss == true "><mat-chip color="primary" color="accent" selected>Weight Loss</mat-chip></span>
+                  <span *ngIf="(pref.key == 'cardio') && (pref.value == true) && self.preference.cardio == true"><mat-chip color="primary" color="accent" selected>Cardio</mat-chip></span>
+                  <span *ngIf="(pref.key == 'endurance') && (pref.value == true) && self.preference.endurance == true"><mat-chip color="primary" color="accent" selected>Endurance</mat-chip></span>
+                  <span *ngIf="(pref.key == 'flexibility') && (pref.value == true) && self.preference.flexibility == true"><mat-chip color="primary" color="accent" selected>Flexibiliy</mat-chip></span>
+                  <span *ngIf="(pref.key == 'genFit') && (pref.value == true) && self.preference.genFit == true"><mat-chip color="primary" color="accent" selected>General Fitness</mat-chip></span>
+                  <span *ngIf="(pref.key == 'muscle') && (pref.value == true) && self.preference.muscle == true"><mat-chip color="primary" color="accent" selected>Muscle Building</mat-chip></span>
+                  <span *ngIf="(pref.key == 'strength') && (pref.value == true) && self.preference.strength == true"><mat-chip color="primary" color="accent" selected>Strength Training</mat-chip></span>
+                </span>
+            </mat-chip-list>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="their_schedule">
+            <p>{{other_person.fname | titlecase}}'s Workout Schedule</p>
+              <table class="table table-sm">
+                  <thead>
+                      <tr>
+                          <th class="scope">Mon</th>
+                          <th class="scope">Tues</th>
+                          <th class="scope">Wed</th>
+                          <th class="scope">Thu</th>
+                          <th class="scope">Fri</th>
+                          <th class="scope">Sat</th>
+                          <th class="scope">Sun</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td><span *ngIf="other_person.schedule.mon">{{other_person.schedule.mon | time24to12Transform}}</span></td>
+                          <td><span *ngIf="other_person.schedule.tues">{{other_person.schedule.tues | time24to12Transform}}</span></td>
+                          <td><span *ngIf="other_person.schedule.wed">{{other_person.schedule.wed | time24to12Transform}}</span></td>
+                          <td><span *ngIf="other_person.schedule.thurs">{{other_person.schedule.thurs | time24to12Transform}}</span></td>
+                          <td><span *ngIf="other_person.schedule.fri">{{other_person.schedule.fri | time24to12Transform}}</span></td>
+                          <td><span *ngIf="other_person.schedule.sat">{{other_person.schedule.sat | time24to12Transform}}</span></td>
+                          <td><span *ngIf="other_person.schedule.sun">{{other_person.schedule.sun | time24to12Transform}}</span></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+         </span>
+     </div>
+   </div>
+  </div>  
     
       

@@ -43,7 +43,6 @@ export class MainComponent implements OnInit {
     this.checkPref();
     this.self = {fname:"", lname: ""};
     this.subscribeChats(this.self_id);
-    this.unread = false;
     this._sub = this.socketsService.chatrooms.subscribe(data => {
       this.chatrooms = data;
       this.unread = this.checkUnread(this.chatrooms);
@@ -51,7 +50,8 @@ export class MainComponent implements OnInit {
   }
 
   ngOnChanges(){
-    // this.unread = this.checkUnread(this.chatrooms);
+    console.log('changes detected');
+    this.unread = this.checkUnread(this.chatrooms);
   }
   ngOnDestroy():void{
     this.mobileQuery.removeListener(this._mobileQueryListener);

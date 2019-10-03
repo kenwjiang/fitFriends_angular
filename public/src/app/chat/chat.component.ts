@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { SocketsService } from 'src/app/sockets.service';
 import { Subscription, Observable } from 'rxjs';
 
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -35,6 +36,9 @@ export class ChatComponent implements OnInit {
     this.socketsService.setRead(data)
   }
 
+  dataFromChild(eventData){
+
+  }
   private checkUnreadChats(array){
     for(let i = 0; i < array.length; i ++) {
       if(array[i]['msg']){
