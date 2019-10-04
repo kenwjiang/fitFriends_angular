@@ -38,12 +38,16 @@
    <div class="other_member_container d-inline-block">
      <div class="other_person_info">
         <span *ngIf="other_person">
+            <div class="their_image mt-3 mb-3 d-flex flex-row justify-content-center">
+              <img class="rounded-circle" width="100" height="100" [src]="other_person.imgUrl">
+            </div>
           <div class="goal_matches">
-            <p>You and {{other_person.fname | titlecase}} share these goals</p>
+            <p class="text-center">You and {{other_person.fname | titlecase}} share these goals</p>
             <div class="common_list mb-3">
             <mat-chip-list>
+              <span *ngIf="self">
                 <span *ngFor="let pref of other_person.preference | keyvalue">
-                  <span *ngIf="((pref.key == 'weight_loss') && (pref.value == true)) && self.preference.weight_loss == true "><mat-chip color="primary" color="accent" selected>Weight Loss</mat-chip></span>
+                  <span *ngIf="(pref.key == 'weight_loss') && (pref.value == true) && self.preference.weight_loss == true "><mat-chip color="primary" color="accent" selected>Weight Loss</mat-chip></span>
                   <span *ngIf="(pref.key == 'cardio') && (pref.value == true) && self.preference.cardio == true"><mat-chip color="primary" color="accent" selected>Cardio</mat-chip></span>
                   <span *ngIf="(pref.key == 'endurance') && (pref.value == true) && self.preference.endurance == true"><mat-chip color="primary" color="accent" selected>Endurance</mat-chip></span>
                   <span *ngIf="(pref.key == 'flexibility') && (pref.value == true) && self.preference.flexibility == true"><mat-chip color="primary" color="accent" selected>Flexibiliy</mat-chip></span>
@@ -51,12 +55,13 @@
                   <span *ngIf="(pref.key == 'muscle') && (pref.value == true) && self.preference.muscle == true"><mat-chip color="primary" color="accent" selected>Muscle Building</mat-chip></span>
                   <span *ngIf="(pref.key == 'strength') && (pref.value == true) && self.preference.strength == true"><mat-chip color="primary" color="accent" selected>Strength Training</mat-chip></span>
                 </span>
+              </span>
             </mat-chip-list>
             </div>
           </div>
           <mat-divider></mat-divider>
-          <div class="their_schedule">
-            <p>{{other_person.fname | titlecase}}'s Workout Schedule</p>
+          <div class="their_schedule mt-3">
+            <p class="text-center">{{other_person.fname | titlecase}}'s Workout Schedule</p>
               <table class="table table-sm">
                   <thead>
                       <tr>

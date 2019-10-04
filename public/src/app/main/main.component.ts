@@ -13,7 +13,7 @@ declare const $: any;
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnChanges, OnDestroy {
   self_id: string;
   self: any;
   mobileQuery: MediaQueryList;
@@ -50,8 +50,8 @@ export class MainComponent implements OnInit {
   }
 
   ngOnChanges(){
-    console.log('changes detected');
     this.unread = this.checkUnread(this.chatrooms);
+
   }
   ngOnDestroy():void{
     this.mobileQuery.removeListener(this._mobileQueryListener);

@@ -1,7 +1,21 @@
-const mongoose = require('mongoose');
 const model = require('../models/model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+// const multer = require('multer');
+var path = require('path');
+
+// const DIR = './public/src/assets/uploads';
+
+// let storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       cb(null, DIR);
+//     },
+//     filename: (req, file, cb) => {
+//       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+//     }
+// });
+// let upload = multer({storage: storage}).single('photo');
+
 
 module.exports = {
     getSelf: (req, res)=> {
@@ -224,5 +238,25 @@ module.exports = {
           })
           }
         })
-      }
+      },
+      
+    setAvatar: (req, res)=>{
+      model.User.findOneAndUpdate({_id: req.body.id}, {$set:{
+        imgUrl: req.body.imgString
+      }}, (err, data)=> {
+        if(err) {
+          console.log(err);
+          res.status(500).send('err', err);
+        } else {
+          model.User.findOne({_id: data._id}, (err, data)=> {
+            if(err){
+              console.log(err)
+            } else {
+              res.json(data);
+            }
+          })
+         
+        }
+      })
+    }
 }

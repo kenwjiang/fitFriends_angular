@@ -1,7 +1,6 @@
 const controller = require('../controller/controller.js');
 const jwt = require('jsonwebtoken');
-
-var path = require('path');
+const path = require('path');
 
 
 function verifyToken(req, res, next){
@@ -21,38 +20,41 @@ function verifyToken(req, res, next){
 }
 
 module.exports = function(app){
-  //get room data;
-  app.get("/getRoom/:id", controller.getRoom);
+    // set avatar 
+    app.post('/setAvatar', controller.setAvatar);
+        
+    //get room data;
+    app.get("/getRoom/:id", controller.getRoom);
 
-  //check to see if a chat exists
-  app.post("/checkChat", controller.checkChatroom);
+    //check to see if a chat exists
+    app.post("/checkChat", controller.checkChatroom);
 
-  //update user password
-  app.post('/updatePassword', controller.updatePassword);
+    //update user password
+    app.post('/updatePassword', controller.updatePassword);
 
-  //update user name and email
-  app.post('/updateInfo', controller.updateInfo);
+    //update user name and email
+    app.post('/updateInfo', controller.updateInfo);
 
-  //get all gym members in a default gym
-  app.post('/getGymMembers', controller.getMembers);
+    //get all gym members in a default gym
+    app.post('/getGymMembers', controller.getMembers);
 
-  // set default gym
-  app.post('/setDefaultGym/', controller.setDefaultGym);
+    // set default gym
+    app.post('/setDefaultGym/', controller.setDefaultGym);
 
-  // update schedule
-  app.post('/updateSchedule', controller.updateSchedule);
+    // update schedule
+    app.post('/updateSchedule', controller.updateSchedule);
 
-  // update goals
-  app.post('/updateGoals', controller.updateGoals);
+    // update goals
+    app.post('/updateGoals', controller.updateGoals);
 
-  //get self
-  app.get('/getSelf/:id', controller.getSelf);
+    //get self
+    app.get('/getSelf/:id', controller.getSelf);
 
-  //login user
-  app.post('/loginUser', controller.login);
+    //login user
+    app.post('/loginUser', controller.login);
 
-  // add register user
-  app.post('/registerUser', controller.registerUser);
+    // add register user
+    app.post('/registerUser', controller.registerUser);
 
     app.all("*", (req,res,next) => {
         res.sendFile(path.resolve("./public/dist/public/index.html"))

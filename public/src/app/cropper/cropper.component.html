@@ -1,0 +1,31 @@
+<div class='crop_container'>
+        <h1 mat-dialog-title>Upload & Crop</h1>
+        <div mat-dialog-content>
+            <div class="cropper">
+            <div class="d-flex flex-row justify-content-center align-center">
+                    <button class="inputButton" mat-stroked-button #fileInput color="primary">
+                        Upload Picture
+                        <input type="file" (change)="fileChangeEvent($event)" style="opacity: 0; position:absolute; left:0px; top:0px; width:100%; height:100%;"/>
+                    </button>
+                </div>
+                <div class="d-flex flex-row justify-content-center align-center"> 
+                    <span [hidden]="!croppedImage"><img style="width: 150px; height: 150px;" [src]="croppedImage" /></span>
+                </div>
+                <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="1 / 1"
+                    [resizeToWidth]="300"
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    (loadImageFailed)="loadImageFailed()"
+                ></image-cropper>
+
+                </div>
+            </div>
+        <div mat-dialog-actions class="d-flex flex-row justify-content-center align-center">
+            <button mat-button (click)="onNoClick()">No Thanks</button>
+            <button mat-raised-button color="primary" [disabled]="!croppedImage" [mat-dialog-close]="croppedImage" cdkFocusInitial>Update</button>
+        </div>
+</div>
+

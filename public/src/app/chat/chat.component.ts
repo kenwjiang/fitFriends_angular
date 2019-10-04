@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SocketsService } from 'src/app/sockets.service';
 import { Subscription, Observable } from 'rxjs';
 
@@ -8,7 +8,7 @@ import { Subscription, Observable } from 'rxjs';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
   self_id: string;
   allRooms: Observable<any[]>;
   private _rooms: Subscription;
@@ -36,9 +36,6 @@ export class ChatComponent implements OnInit {
     this.socketsService.setRead(data)
   }
 
-  dataFromChild(eventData){
-
-  }
   private checkUnreadChats(array){
     for(let i = 0; i < array.length; i ++) {
       if(array[i]['msg']){

@@ -89,6 +89,10 @@ const UserSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    imgUrl: {
+      type: String,
+      default: "assets/placeholder.png"
+    },
     preference: {
       type: PreferenceSchema,
       default: null

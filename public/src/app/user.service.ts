@@ -22,4 +22,7 @@ export class UserService {
   updatePassword(data){
     return this._http.post('/updatePassword', data);
   }
+  setAvatar(data){
+    return this._http.post('/setAvatar', data);
+  }
 }

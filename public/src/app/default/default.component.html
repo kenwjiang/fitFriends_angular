@@ -3,8 +3,8 @@
 <div class="gym_container">
 
     <div class="title_container">
-        <h1>{{gym.name}}</h1>
-        <p>{{gym.formatted_address}}</p>
+        <h1 class="ml-3">{{gym.name}}</h1>
+        <p class="ml-3">{{gym.formatted_address}}</p>
     </div>
 
     <div class="card_container">
@@ -13,7 +13,7 @@
                 <mat-card-title>{{member.fname | titlecase}} {{member.lname | titlecase}}</mat-card-title>
                 <mat-card-subtitle>{{member.gender | titlecase}}, {{getAge(member.dob)}} yrs</mat-card-subtitle>
             </mat-card-header>
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="filler">
+            <img mat-card-image [src]="member.imgUrl" alt="filler">
             <mat-card-content>
                 <div class="card-div-container">
                 <div class="card_info">

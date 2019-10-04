@@ -96,6 +96,7 @@ export class PreferenceComponent implements OnInit {
   getSelf(){
     this.userService.getSelf(localStorage.getItem('id')).subscribe(data=> {
       this.self = data;
+      console.log('data', data);
       if(data['schedule']){
         this.schedule = data['schedule'];
       }
@@ -114,7 +115,6 @@ export class PreferenceComponent implements OnInit {
   }
 
   updateGoals(){
-    console.log('preference', this.preference);
     this.prefService.updateGoals({id: localStorage.getItem('id'), goals:this.preference})
     .subscribe(data=>{
       this.getSelf();
@@ -122,7 +122,6 @@ export class PreferenceComponent implements OnInit {
   }
   setDefaultGym(id){
     localStorage.setItem('gym', id);
-    console.log(localStorage.getItem('gym'));
     this.mapService.setDefault({id: localStorage.getItem('id'), gym_id: id})
     .subscribe(data=>{
       this.self.default_gym = data['default_gym'];

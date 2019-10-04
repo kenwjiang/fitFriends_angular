@@ -1,0 +1,11 @@
+h1 {
+    text-align: center;
+}
+
+.cropper {
+    width: 90%;
+    margin: 0 auto;
+}
+button {
+    outline: none;
+}

@@ -50,7 +50,6 @@ export class ChatboxComponent implements OnInit, OnDestroy {
    })
    this.userService.getSelf(this.self_id).subscribe(data=> {
      this.self = data;
-     console.log(this.self);
    })
   }
   ngAfterViewInit(){

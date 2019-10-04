@@ -136,7 +136,7 @@ io.on("connection", socket => {
           if(err) {
             console.log("err", err);
           } else {
-            console.log('chatroom data', data);
+           
           }
       });
     });

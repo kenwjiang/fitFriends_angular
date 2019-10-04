@@ -1,19 +1,22 @@
-.some_container {
+
+
+
+.photo_container{
+  margin-top: 2%;
   width: 80%;
-  margin: 2% auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.photo_container img, .photo_container button{
+  margin: 1%;
 }
 
-.info_form_container, .edit_password_container{
-  width: 80%;
-  margin: 5% auto;
+.photo_container img {
+  width: 150px;
+  height: 150px;
 }
-
-label {
-  width:30%;
-  display: inline-block
-}
-
-input{
-  width: 40%;
-  display: inline-block;
+.mat-form-field{
+  display: block !important;
 }
