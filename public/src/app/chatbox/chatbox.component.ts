@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Output, EventEmitter} from '@angular/core';
 import {SocketsService} from '../sockets.service'
 import {  Subscription, Observable } from 'rxjs';
 import { ActivatedRoute, Params, Router, NavigationEnd, Event } from '@angular/router';
@@ -12,11 +12,9 @@ import { UserService } from '../user.service';
 export class ChatboxComponent implements OnInit, OnDestroy {
   @ViewChild('box', {static:false})
    private box: any ;
-   
 
   room_id:string;
   msgToSend: string;
-  data: any;
   self: any;
   other_person: any;
   self_id: string;
@@ -39,7 +37,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
         (event: Event) => {
             if (event instanceof NavigationEnd) {
               this.currentRoom(this.room_id);
-              setTimeout(()=> this.box.nativeElement.scrollTop = this.box.nativeElement.scrollHeight, 300 )
+              setTimeout(()=> this.box.nativeElement.scrollTop = this.box.nativeElement.scrollHeight, 270 )
             }
    });
    this._room = this.socketsService.currentRoom.subscribe(data=> {
@@ -52,8 +50,9 @@ export class ChatboxComponent implements OnInit, OnDestroy {
      this.self = data;
    })
   }
+  
   ngAfterViewInit(){
-    setTimeout(()=> this.box.nativeElement.scrollTop = this.box.nativeElement.scrollHeight, 300 )
+    setTimeout(()=> this.box.nativeElement.scrollTop = this.box.nativeElement.scrollHeight, 270 )
 
   }
   ngOnDestroy(){
@@ -64,7 +63,6 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   currentRoom(id){
     this.socketsService.getChatroom(id);
   }
-
 
   sendMsg(){
     this.socketsService.postMsg({chatroom_id: this.room_id, msg:this.msgToSend, sender_id: localStorage.getItem('id')});

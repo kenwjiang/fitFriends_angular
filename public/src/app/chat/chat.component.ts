@@ -1,6 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { SocketsService } from 'src/app/sockets.service';
 import { Subscription, Observable } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 
 @Component({
@@ -10,12 +12,22 @@ import { Subscription, Observable } from 'rxjs';
 })
 export class ChatComponent implements OnInit, OnDestroy {
   self_id: string;
+  mobileQuery: MediaQueryList;
   allRooms: Observable<any[]>;
   private _rooms: Subscription;
-  
+  private _mobileQueryListener: ()=> void;
+
   constructor(
-    private socketsService: SocketsService
-  ) { }
+    private socketsService: SocketsService,
+    private router: Router,
+    public route: ActivatedRoute,
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher
+  ) {
+    this.mobileQuery = media.matchMedia("(max-width: 411px)");
+    this._mobileQueryListener=()=>changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+   }
 
   ngOnInit() {
     this.self_id = localStorage.getItem('id');
@@ -23,6 +35,7 @@ export class ChatComponent implements OnInit, OnDestroy {
        this.allRooms = this.checkUnreadChats(data);
     })
     this.socketsAllChats();
+
   }
   ngOnDestroy(){
     this._rooms.unsubscribe();
@@ -35,6 +48,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   setRead(data) {
     this.socketsService.setRead(data)
   }
+
 
   private checkUnreadChats(array){
     for(let i = 0; i < array.length; i ++) {

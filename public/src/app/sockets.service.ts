@@ -35,4 +35,7 @@ export class SocketsService implements OnInit, OnDestroy {
   setRead(data) {
     this.socket.emit('setRead', data);
   }
+  checkUnread(data){
+    this.socket.emit('checkUnread', data);
+  }
 }

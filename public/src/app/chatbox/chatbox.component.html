@@ -1,9 +1,10 @@
 <div class="chatbox_header shadow">
   <div class="other_person">
-      <span *ngIf="other_person">
+      <div class="back_arrow d-inline-block align-top ml-3 mr-3 mt-3"><a [routerLink]="['/main/chat']"><mat-icon>keyboard_backspace</mat-icon></a></div>
+      <div *ngIf="other_person" class="other_person_header d-inline-block align-top">
         <h5>{{other_person.fname | titlecase}} {{other_person.lname | titlecase}}</h5>
         <p>{{other_person.gender | titlecase}}, {{getAge(other_person.dob)}} yrs</p>
-      </span>
+      </div>
     </div>
   </div>
   <div class="messaging_container">
@@ -31,7 +32,7 @@
         <div class="input_field">
           <form (submit)="sendMsg()">
             <textarea rows="1" name ="msgToSend" (keyup.enter)="sendMsg()" [(ngModel)]="msgToSend" placeholder="Type message here.."></textarea>
-            <button type="submit"><mat-icon>send</mat-icon></button>
+            <button (click)="anotherFunction()" type="submit"><mat-icon>send</mat-icon></button>
           </form>
         </div>
    </div>

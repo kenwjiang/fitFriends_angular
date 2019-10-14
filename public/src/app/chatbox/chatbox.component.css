@@ -37,8 +37,8 @@
   z-index: 3;
 }
 .other_person{
-  margin-top: 15px;
-  margin-left: 30px;
+  margin-top: 8px;
+  margin-left: 8px;
 }
 .other_person p {
   font-size: .8em;
@@ -103,7 +103,22 @@ button {
   color: #AB47BC;
   border: none;
 }
+.back_arrow a {
+  color: black;
+}
 
 table td {
   width: 13%;
+}
+
+@media only screen and (max-width: 412px) {
+
+  table {
+    width: 80%;
+    font-size: .7em;
+  }
+  table thead, table tr, table td {
+    margin: 0;
+    padding: 0;
+  }
 }

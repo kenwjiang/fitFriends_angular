@@ -60,3 +60,37 @@
   margin: 1% 1%;
   
 }
+
+@media only screen and (max-width: 412px) {
+  .pref_container {
+    width: 90%;
+  }
+  ::ng-deep .mat-form-field-wrapper, ::ng-deep.mat-form-field-wrapper {
+    width: 250px !important;
+  }
+  ::ng-deep .mat-form-field-wrapper{
+    margin-left: 8%;
+  }
+  .place_container{
+    width: 250px;
+    margin: 0 2%;
+    background-position-x: 50% !important;
+    background-position-y: 50% !important;
+    height: 200px;
+    color:white;
+    text-align: center;
+    /* display: flex;
+    align-items:center ;
+    flex-direction: column; */
+  }
+  .place_info h1, .place_info p{
+    font-size: small;
+  }
+  .gym_title {
+    margin: 2%;
+    padding: 0;
+  }
+  .place_info p {
+    margin: 0;
+  }
+}

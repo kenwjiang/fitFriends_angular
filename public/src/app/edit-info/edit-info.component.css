@@ -20,3 +20,8 @@
 .mat-form-field{
   display: block !important;
 }
+@media only screen and (max-width: 412px) {
+  .photo_container {
+    margin: 2% auto !important;
+  }
+}

@@ -8,3 +8,13 @@
 .users_list h1{
     margin: 2% 5%;
 }
+
+@media only screen and (max-width: 412px){
+    .card {
+        width: 95%;
+        height: auto !important;
+    }
+    .card_info, .schedule_info{
+        height: auto !important;
+    }
+}

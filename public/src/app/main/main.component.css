@@ -44,3 +44,9 @@ flex: 1 0 auto;
 .toolbar a:hover{
     color: white;
 }
+
+@media only screen and (max-width: 412px) {
+   .toolbar p {
+       display: none;
+   }
+}
