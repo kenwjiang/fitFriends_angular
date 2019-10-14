@@ -4,7 +4,7 @@
     <!-- Tabs Titles -->
 
     <!-- REgister Form -->
-
+    <h5 class="text-center mt-3 fadeIn second" style="color: #56baed">Register</h5>
     <form (submit)="addUser()">
       <input type="text" id="firstName" #firstName="ngModel" required minlength="2" class="fadeIn second" name="newUser.fname" [(ngModel)]="newUser.fname" placeholder="first name">
       <div class="alert alert-warning" *ngIf=" (firstName.invalid && (firstName.dirty || firstName.touched))">

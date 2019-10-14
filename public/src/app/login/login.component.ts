@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { AuthService } from '../auth.service';
 import { UserService } from '../user.service';
+import { FlashMessagesService } from 'ngx-flash-messages';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(
       private userService: UserService,
       private _auth: AuthService,
+      private flashMessagesService: FlashMessagesService,
       private _router: Router
   ) { }
 
@@ -26,14 +28,15 @@ export class LoginComponent implements OnInit {
       .subscribe(
           res=> {
               this.userService.getSelf(res.user._id);
-            console.log('login res', res);
               localStorage.setItem('gym', res['user']['default_gym']);
               localStorage.setItem('token', res['token']);
               localStorage.setItem('id', res['user']['_id']);
               this._router.navigate(['/main', 'default']);
           },
           err=> {
-            console.log("received error", err);
+            this.flashMessagesService.show("Invalid Credentials. Try again", {
+              classes: ["alert-danger"]
+            })
             this._router.navigate(['/login']);
           }
       )

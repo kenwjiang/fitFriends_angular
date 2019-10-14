@@ -1,5 +1,4 @@
 <div class="pref_container">
-
     <!-- Set Default Gym Input -->
     <mat-accordion class="example-headers-align">
       <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
@@ -91,6 +90,7 @@
                       </tr>
                     </tbody>
                   </table>
+                 <ngx-flash-messages></ngx-flash-messages>
                 <button mat-stroked-button color="primary" type="submit">Update</button>
               </form>
         </div>
@@ -138,6 +138,7 @@
                 <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  name="strength" [(ngModel)]="preference.strength">Strength Training</mat-checkbox></label>
                 <label><mat-checkbox style="line-height: 50px !important;margin-left: 10px;" color="primary"  name="genFit" [(ngModel)]="preference.genFit">General Health</mat-checkbox></label>
              </div>
+             <ngx-flash-messages></ngx-flash-messages>
              <button style="margin: 0 3%;" mat-stroked-button type="submit" color="primary">Update</button>
            </form>
       

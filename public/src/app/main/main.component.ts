@@ -44,7 +44,6 @@ export class MainComponent implements OnInit, OnChanges, OnDestroy {
     this.self = {fname:"", lname: ""};
     this.subscribeChats(this.self_id);
     this._sub = this.socketsService.chatrooms.subscribe(data => {
-      console.log('chatroom data', data);
       this.chatrooms = data;
       this.unread = this.checkUnread(this.chatrooms);
     })
@@ -62,7 +61,6 @@ export class MainComponent implements OnInit, OnChanges, OnDestroy {
   checkPref(){
     this._userService.getSelf(this.self_id)
     .subscribe( data=> {
-      console.log('self', data);
       this.self = data;
       localStorage.setItem('gym', this.self.default_gym);
       if(!data['preference'] || !data['schedule']){
@@ -70,10 +68,6 @@ export class MainComponent implements OnInit, OnChanges, OnDestroy {
       }
     })
   }
-  // checkMsgs(){
-  //   this.socketsService.checkUnread({chatroom_id: })
-
-  // }
 
   subscribeChats(id){
     this.socketsService.getAllChats(id);

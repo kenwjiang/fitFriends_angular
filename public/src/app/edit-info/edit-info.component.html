@@ -35,6 +35,7 @@
               Email is <strong>required</strong>
             </mat-error>
           </mat-form-field>
+          <ngx-flash-messages></ngx-flash-messages>
           <button mat-raised-button type="submit" color="accent">Update Info</button>
       </form>
   
@@ -54,18 +55,19 @@
       </mat-expansion-panel-header>
 
       <form (submit)="changePassword()">
+        <ngx-flash-messages></ngx-flash-messages>
           <mat-form-field>
-             <input matInput type="password" required name="old"  placeholder="Current Password" class="form-control" [(ngModel)]="password.old">
+             <input matInput type="password" required name="old"  placeholder="Current Password" class="form-control" [(ngModel)]="old_pw">
          </mat-form-field>
           <mat-form-field>
-             <input matInput required class="form-control" #password="ngModel" name="new" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" type="password" placeholder="New Password" [(ngModel)]=password.new>
+             <input matInput required class="form-control" #password="ngModel" name="new" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" type="password" placeholder="New Password" [(ngModel)]=new_pw>
              <span *ngIf="(password.invalid && (password.dirty || password.touched))">
                 <mat-error *ngIf="password.errors.required">New password is required</mat-error>
                 <mat-error *ngIf="password.errors?.pattern">New password must be at least 8 characters and contain 1 letter, 1 number.</mat-error>
             </span>
          </mat-form-field>
           <mat-form-field>
-             <input matInput required type="password" placeholder="Confirm New Password">
+             <input matInput required type="password" placeholder="Confirm New Password"  name="pw_confirm" [(ngModel)]="pw_confirm">
          </mat-form-field>
          <button mat-raised-button type="submit" color="accent">Update Password</button>
       </form>

@@ -6,6 +6,8 @@ import { UserService } from '../user.service';
 import { MapService } from '../map.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {FormControl, Validators} from '@angular/forms';
+import { FlashMessagesService } from 'ngx-flash-messages';
+
 
 declare const google: any;
 
@@ -35,6 +37,7 @@ export class PreferenceComponent implements OnInit {
     private prefService: PrefService,
     private mapService: MapService,
     private userService: UserService,
+    private flashMessagesService: FlashMessagesService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private santization: DomSanitizer
@@ -96,7 +99,9 @@ export class PreferenceComponent implements OnInit {
   getSelf(){
     this.userService.getSelf(localStorage.getItem('id')).subscribe(data=> {
       this.self = data;
-      console.log('data', data);
+      if(!data['schedule'] || !data['preference']) {
+        alert("Please set a default gym, fill out workout schedule and fitness goals!")
+      }
       if(data['schedule']){
         this.schedule = data['schedule'];
       }
@@ -108,17 +113,53 @@ export class PreferenceComponent implements OnInit {
   }
 
   updateSchedule(){
-    this.prefService.updateSchedule({id: localStorage.getItem('id'), schedule:this.schedule})
+    let empty = false;
+    for(let el in this.schedule) {
+      if(el != '_id') {
+        if(this.schedule[el] != "") {
+          empty = true;
+          break;
+        }
+      }
+    }
+    if(empty == false) {
+      this.flashMessagesService.show("Must at least input at least 1 workout time!", {
+        classes: ['alert-danger'],
+        timeout: 1000
+      })
+    } else {
+      this.prefService.updateSchedule({id: localStorage.getItem('id'), schedule:this.schedule})
     .subscribe(data=>{
+      this.flashMessagesService.show("Update Successful", {
+        classes: ['alert-success']
+      })
       this.getSelf();
     })
+    }
   }
 
   updateGoals(){
-    this.prefService.updateGoals({id: localStorage.getItem('id'), goals:this.preference})
-    .subscribe(data=>{
-      this.getSelf();
-    })
+    let empty = false;
+    for(let el in this.preference) {
+      if(this.preference[el] == true) {
+        empty = true;
+        break;
+      }
+    }
+    if(empty == false){
+      this.flashMessagesService.show("Must at least select 1 goal!", {
+        classes: ['alert-danger'],
+        timeout: 1000
+      })
+    } else {
+      this.prefService.updateGoals({id: localStorage.getItem('id'), goals:this.preference})
+      .subscribe(data=>{
+        this.flashMessagesService.show("Update Successful", {
+          classes: ['alert-success']
+        })
+        this.getSelf();
+      })
+    }
   }
   setDefaultGym(id){
     localStorage.setItem('gym', id);

@@ -1,22 +1,8 @@
 const model = require('../models/model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-// const multer = require('multer');
+
 var path = require('path');
-
-// const DIR = './public/src/assets/uploads';
-
-// let storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//       cb(null, DIR);
-//     },
-//     filename: (req, file, cb) => {
-//       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-//     }
-// });
-// let upload = multer({storage: storage}).single('photo');
-
-
 module.exports = {
     getSelf: (req, res)=> {
       model.User.findOne({_id: req.params.id}, (err, data)=>{

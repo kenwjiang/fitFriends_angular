@@ -3,6 +3,8 @@
     <!-- Tabs Titles -->
 
     <!-- Login Form -->
+    <h5 class="text-center mt-3 fadeIn second" style="color: #56baed">Login</h5>
+    <ngx-flash-messages></ngx-flash-messages>
     <form (submit)="loginUser()">
       <input type="text" id="login" class="fadeIn second" name="username" [(ngModel)]="username" placeholder="username">
       <input type="password" id="password" class="fadeIn third" name="password" [(ngModel)]="password" placeholder="password">
